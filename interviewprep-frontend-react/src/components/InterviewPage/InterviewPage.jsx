@@ -7,7 +7,9 @@ const InterviewPage = () => {
 
 
 
-    return <div>Interview page</div>
+    return <div>
+        <button>Leave</button>
+    </div>
 }
 
 export default InterviewPage

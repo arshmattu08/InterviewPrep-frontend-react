@@ -10,6 +10,7 @@ const FormPage = (props) => {
 
     const handleSubmit = () => {
         console.log("submitted!")
+        localStorage.setItem("interviewData", JSON.stringify({jobDescription,additionalContext,recordingOption}))
         props.formSubmission(true);
     }
 
@@ -27,7 +28,7 @@ const FormPage = (props) => {
 
 
             <div>
-                <label>Recording:</label>
+                <label>Recording (Only Chrome is supported):</label>
                 <select value={recordingOption} onChange={(e) => {setRecordingOption(e.target.value)}}>
                     <option value="No Recording">No Recording</option>
                     <option value="Audio Only"> Audio Only</option>
