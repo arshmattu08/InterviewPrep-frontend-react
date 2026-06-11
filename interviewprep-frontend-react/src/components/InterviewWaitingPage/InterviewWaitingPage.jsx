@@ -8,6 +8,8 @@ const InterviewWaitingPage = (props) => {
     console.log(interviewData)
 
     const getPermissions = async (data) => {
+        if (data.recordingOption == "No Recording"){return}
+
         console.log("permissions are hit!")
         const fileHandle = await window.showSaveFilePicker({suggestedName: "recording.webm"})
         props.fileW.current = await fileHandle.createWritable()
@@ -30,14 +32,14 @@ const InterviewWaitingPage = (props) => {
             
         } 
 
-
+// NEXT STEP: finish out the loop on interviewPage
 
     const joinInterview = async () => {
 
        props.wsConn.current = new WebSocket("ws://localhost:8000/interview")
        await getPermissions(interviewData)
        props.wsConn.current.onopen = () => {
-                props.wsConn.current.send(JSON.stringify(interviewData))
+                props.wsConn.current.send(JSON.stringify(interviewData)) // gonna trigger greeting 
                 }
        props.joiningInterview(true)
        

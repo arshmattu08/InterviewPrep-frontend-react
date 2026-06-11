@@ -18,7 +18,7 @@ const App = () => {
 
    
 
-    return (  hasUserJoined ? <InterviewPage/> 
+    return (  hasUserJoined ? <InterviewPage wsConn ={ws}/> 
             : isFormSubmitted ? <InterviewWaitingPage joiningInterview = {setJoinState} 
                                                       wsConn = {ws}
                                                       fileW = {fileWriter}
