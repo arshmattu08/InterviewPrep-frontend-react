@@ -11,6 +11,7 @@ const InterviewPage = (props) => {
     const SILENCE_LIMIT = 3000; //millisec
     const silenceFrames = useRef(null);
     const threshold = 20;
+    const isWaitingResponse = useRef(false)
     let recorder = useRef(null);
     let stream = useRef(null);
     let audio_chunks = useRef([]);
@@ -22,6 +23,7 @@ const InterviewPage = (props) => {
         recorder.current.ondataavailable = (event) => audio_chunks.current.push(event.data)
         recorder.current.onstop = () => {
             const blob = new Blob(audio_chunks.current, {type: "audio/webm"});
+            isWaitingResponse.current = true;
             props.wsConn.current.send(blob);
             console.log("User Response ended and sent over!");}
         const mic_source = audioContext.current.createMediaStreamSource(stream.current); 
@@ -33,6 +35,8 @@ const InterviewPage = (props) => {
         analyser.current.getByteFrequencyData(dataArray.current);
         const avg_volume = dataArray.current.reduce((a,b) => a + b)/ dataArray.current.length;
 
+
+        if (!isWaitingResponse.current){
           if (avg_volume > threshold){
             silenceStart.current = null;
             if (!isRecording.current) { // for first time, INTERRUPTION LOGIC
@@ -41,12 +45,13 @@ const InterviewPage = (props) => {
             recorder.current.start()
             isRecording.current = true
             console.log("Recorder started")}  } 
+
          else if (isRecording.current){ //recorder is on and volume below threshold = silence, CLIENT IS DONE LOGIC
             if (!silenceStart.current) {silenceStart.current = Date.now()}
             if ((Date.now() - silenceStart.current) > SILENCE_LIMIT) {
             recorder.current.stop()
             isRecording.current = false
-            }}
+            }} }
    
 
         requestAnimationFrame(detectSpeech)
@@ -54,7 +59,8 @@ const InterviewPage = (props) => {
     }
 
     props.wsConn.current.onmessage = async (event) => {
-        console.log("received greeting", event.data)
+        console.log("AI responding...", event.data)
+        isWaitingResponse.current = false
         const arrayBuffer = await event.data.arrayBuffer()
         const decoded = await audioContext.current.decodeAudioData(arrayBuffer)
         bufferSource.current = audioContext.current.createBufferSource()
@@ -68,9 +74,19 @@ const InterviewPage = (props) => {
         initInterview()
     },[])
 
+    const handleEnd = () => {
+        props.sessionRec.current.onstop = () => {
+            props.fileW.current.close()
+            props.wsConn.current.send(JSON.stringify({"msg":"end"}))
+    }
+        props.sessionRec.current.stop()
+        alert("Your interview has been ended successfully.")
+    }
+    
+
 
     return <div>
-        <button>Leave</button>
+        <button onClick={handleEnd}>Leave</button>
     </div>
 }
 
