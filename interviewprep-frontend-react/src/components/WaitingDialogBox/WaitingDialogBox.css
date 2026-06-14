@@ -1,0 +1,55 @@
+#dialog-box-wrapper {
+    border: 2px solid black;
+    width: 40%;
+    padding: 1px;
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 20%;
+}
+
+
+
+.welcome-msg {
+    text-align: center;
+    font-size: 32px;
+}
+
+
+.panel-wrapper {
+    display: flex;
+    padding: 10px;
+}
+
+#inner-wrapper, .support-info {
+   flex:1;
+   background-color: lightgray;
+   text-align: center;
+}
+
+/* .support-info {
+    border: 1.5px solid black;
+    border-left: 0px;
+    width: 35%;
+    margin-left: 60.5%;
+    margin-top: -12%;
+    height: 10vh;
+    text-align: center;
+    background-color: lightgray;
+
+    
+} */
+
+
+
+.join-btn {
+    display: block;
+    margin-left: 80%;
+    margin-top: 30%;
+    font-size: 16px;
+    padding: 4px 20px 4px 20px;
+    border-radius: 8px;
+    background-color: #6137cc;
+    color: white;
+    font-weight: bolder;
+    cursor: pointer;
+}

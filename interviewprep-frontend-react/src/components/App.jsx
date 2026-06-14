@@ -24,10 +24,6 @@ const App = () => {
                                                       fileW = {fileWriter}
                                                       sessionStr = {sessionStream}
                                                       sessionRec = {sessionRecorder}/> 
-
-
-
-
             : <FormPage formSubmission ={setFormState}/>
             )
 }

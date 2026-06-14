@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
 import "./InterviewWaitingPage.css"
+import WaitingDialogBox  from "../WaitingDialogBox/WaitingDialogBox";
 
 const InterviewWaitingPage = (props) => {
 
-
+    const [isUserReady, setUserReady] = useState(false)
     const interviewData = JSON.parse(localStorage.getItem("interviewData"))
     console.log(interviewData)
 
@@ -32,27 +33,32 @@ const InterviewWaitingPage = (props) => {
             
         } 
 
-// NEXT STEP: finish out the loop on interviewPage
 
     const joinInterview = async () => {
+       setUserReady(true)
 
+       const delays = [2000, 3000, 4000, 5000];
+       const randomDelay = delays[Math.floor(Math.random() * delays.length)];
        props.wsConn.current = new WebSocket("ws://localhost:8000/interview")
        await getPermissions(interviewData)
        props.wsConn.current.onopen = () => {
                 props.wsConn.current.send(JSON.stringify(interviewData)) // gonna trigger greeting 
                 }
-       props.joiningInterview(true)
+       setTimeout(() => props.joiningInterview(true), randomDelay);
        
     }
     
 
-    return  <div>
-                <h2>Welcome to your mock interview!</h2>
+    return  (
 
-                
+            <WaitingDialogBox 
+            joinInterview={joinInterview}
+            getPermissions={getPermissions}
+            interviewData={interviewData}
+            isUserReady={isUserReady}/>
 
-                <button onClick={joinInterview}>Join</button>
-            </div>
+    )       
+
 }
 
 export default InterviewWaitingPage

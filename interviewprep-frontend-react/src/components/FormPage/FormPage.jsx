@@ -1,5 +1,6 @@
 import React, {useState,useEffect} from "react";
 import "./FormPage.css"
+import FormCard from "../FormCard/FormCard";
 
 const FormPage = (props) => {
 
@@ -10,38 +11,24 @@ const FormPage = (props) => {
 
     const handleSubmit = () => {
         console.log("submitted!")
+        if (!jobDescription.trim()) return;
         localStorage.setItem("interviewData", JSON.stringify({jobDescription,additionalContext,recordingOption}))
         props.formSubmission(true);
     }
 
-    return <div id = "user_form">
-            <div>
-                <label>Job Description:</label>
-                <textarea value = {jobDescription} onChange={(e) => {setJobDescription(e.target.value)}} required></textarea>
-            </div>
+    return (
+        // On this formPage we can return the Card plus navbar and stuff in the future.
 
-            <div>
-                <label>Additional Context:</label>
-                <textarea value = {additionalContext} onChange={(e) => {setAdditionalContext(e.target.value)}}
-                placeholder="Please provide any additional context regarding the role you're preparing for" cols="100"></textarea>
-            </div>
+        <FormCard
+        jobDescription={jobDescription}
+        setJobDescription={setJobDescription}
+        additionalContext={additionalContext}
+        setAdditionalContext={setAdditionalContext}
+        recordingOption={recordingOption}
+        setRecordingOption={setRecordingOption}
+        handleSubmit={handleSubmit}
+        />
+    )
 
-
-            <div>
-                <label>Recording (Only Chrome is supported):</label>
-                <select value={recordingOption} onChange={(e) => {setRecordingOption(e.target.value)}}>
-                    <option value="No Recording">No Recording</option>
-                    <option value="Audio Only"> Audio Only</option>
-                    <option value="Audio and Video"> Audio and Video</option>
-
-                </select>
-            </div>
-
-            <div>
-                <button onClick={handleSubmit}>Submit</button>
-            </div>
-        </div>
 }
-
-
 export default FormPage
