@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef} from "react";
 import "./InterviewPage.css"
 import InterviewBar from "../InterviewBar/InterviewBar";
+import Grid from "../InterviewGrid/InterviewGrid";
 
 
 const InterviewPage = (props) => {
@@ -105,8 +106,12 @@ const InterviewPage = (props) => {
 
 
     return (
-        <InterviewBar handleEnd= {handleEnd}
-                      formattedTimer = {formattedTimer}/>
+        <div>
+                <InterviewBar handleEnd= {handleEnd}
+                            formattedTimer = {formattedTimer}/>
+                <Grid />
+
+        </div>
     )
 }
 

@@ -20,7 +20,7 @@
     width:10px;
     height: 10px;
     margin-left: 10%;
-    animation: blink 1.0s infinite;
+    animation: blink 1.0 s infinite;
 }
 
 
