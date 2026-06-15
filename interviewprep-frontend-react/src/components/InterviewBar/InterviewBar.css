@@ -7,8 +7,29 @@
 }
 
 
-.timer {
+@keyframes blink {
+    0%,100% {opacity: 1;}
+    50% {opacity: 0;}
+}
+
+
+.rec-indicator {
+    border: 2px solid black;
+    border-radius: 50%;
+    background-color: red;
+    width:10px;
+    height: 10px;
     margin-left: 10%;
+    animation: blink 1.0s infinite;
+}
+
+
+
+
+
+
+.timer {
+    margin-left: 20px;
     margin-right: auto;
     color: white;
     font-size: 16px;
