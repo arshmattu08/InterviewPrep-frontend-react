@@ -1,6 +1,12 @@
 import React, {useState, useEffect, useRef} from "react";
+import "./InterviewPage.css"
+import InterviewBar from "../InterviewBar/InterviewBar";
+
 
 const InterviewPage = (props) => {
+
+    const [time, setTime] = useState(0);
+
 
     const audioContext = useRef(new AudioContext());
     const analyser = useRef(audioContext.current.createAnalyser());
@@ -74,6 +80,19 @@ const InterviewPage = (props) => {
         initInterview()
     },[])
 
+    useEffect(() => {
+    const interval = setInterval(() => setTime(t => t + 1), 1000)
+    return () => clearInterval(interval)
+    }, [])
+
+
+    // format time
+    const minutes = String(Math.floor(time/60)).padStart(2,'0')
+    const seconds = String(time % 60).padStart(2,'0')
+    const formattedTimer = `${minutes}:${seconds}`
+
+
+
     const handleEnd = () => {
         props.sessionRec.current.onstop = () => {
             props.fileW.current.close()
@@ -85,9 +104,10 @@ const InterviewPage = (props) => {
     
 
 
-    return <div>
-        <button onClick={handleEnd}>Leave</button>
-    </div>
+    return (
+        <InterviewBar handleEnd= {handleEnd}
+                      formattedTimer = {formattedTimer}/>
+    )
 }
 
 export default InterviewPage

@@ -1,0 +1,32 @@
+#interview-bar-wrapper {
+    background-color: #6137cc;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 20px;
+    align-items: center;
+}
+
+
+.timer {
+    margin-left: 10%;
+    margin-right: auto;
+    color: white;
+    font-size: 16px;
+    font-weight: 150;
+}
+
+.leave-button {
+ font-weight: bolder;
+ border-color: #e03934;
+ margin-left: auto;
+ padding: 5px 15px 5px 15px;
+ font-size: 14px;
+ background-color: #e03934;
+ color: white;
+ cursor:pointer;
+}
+
+.leave-button:active {
+    transform: scale(0.95);
+   
+}
