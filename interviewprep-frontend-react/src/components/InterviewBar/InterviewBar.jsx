@@ -10,5 +10,5 @@ const InterviewBar = ({handleEnd, formattedTimer}) => {
             <button className={"leave-button"} onClick={handleEnd}>Leave</button>
         </div>
 }
-// PLAN IS TO CREATE A DIV with PURPLE BACKGROUND AND ADD ELEMENTS TO IT.
+
 export default InterviewBar

@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef} from "react";
 import "./InterviewPage.css"
 import InterviewBar from "../InterviewBar/InterviewBar";
 import Grid from "../InterviewGrid/InterviewGrid";
+import InterviewWaitingPage from "../InterviewWaitingPage/InterviewWaitingPage";
 
 
 const InterviewPage = (props) => {
@@ -24,6 +25,27 @@ const InterviewPage = (props) => {
     let audio_chunks = useRef([]);
 
 
+    const playGreeting = async () => {
+        isWaitingResponse.current = true
+        const arrayBuffer = await props.greetingBuffer.current.arrayBuffer()
+        const decoded = await audioContext.current.decodeAudioData(arrayBuffer)
+        bufferSource.current = audioContext.current.createBufferSource()
+        bufferSource.current.buffer = decoded
+        bufferSource.current.connect(audioContext.current.destination)
+        bufferSource.current.start()
+         bufferSource.current.onended = () => {
+            isWaitingResponse.current = false}
+    }
+
+
+    // const waitForGreeting = async () => {
+    // while (!props.greetingBuffer.current) {
+    //     await new Promise(r => setTimeout(r, 100))
+    // }
+    //     playGreeting()
+    // }
+
+
     const initInterview = async () => {
         stream.current = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation: true}})
         recorder.current = new MediaRecorder(stream.current);
@@ -35,6 +57,7 @@ const InterviewPage = (props) => {
             console.log("User Response ended and sent over!");}
         const mic_source = audioContext.current.createMediaStreamSource(stream.current); 
         mic_source.connect(analyser.current);
+        playGreeting();
         detectSpeech();
     }
 

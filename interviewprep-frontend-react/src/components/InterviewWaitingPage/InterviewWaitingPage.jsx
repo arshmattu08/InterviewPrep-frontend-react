@@ -15,9 +15,6 @@ const InterviewWaitingPage = (props) => {
         const fileHandle = await window.showSaveFilePicker({suggestedName: "recording.webm"})
         props.fileW.current = await fileHandle.createWritable()
 
-        console.log(data.jobDescription)
-        console.log(data.additionalContext)
-        console.log(data.recordingOption)
 
         if (data.recordingOption == "Audio and Video") {
             props.sessionStr.current = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false},video:true})
@@ -40,10 +37,14 @@ const InterviewWaitingPage = (props) => {
        const delays = [2000, 3000, 4000, 5000];
        const randomDelay = delays[Math.floor(Math.random() * delays.length)];
        props.wsConn.current = new WebSocket("ws://localhost:8000/interview")
-       await getPermissions(interviewData)
        props.wsConn.current.onopen = () => {
+                console.log("data SENT")
                 props.wsConn.current.send(JSON.stringify(interviewData)) // gonna trigger greeting 
+                props.wsConn.current.onmessage = (event) => {
+                    props.greetingBuffer.current= event.data }
+
                 }
+       await getPermissions(interviewData)
        setTimeout(() => props.joiningInterview(true), randomDelay);
        
     }

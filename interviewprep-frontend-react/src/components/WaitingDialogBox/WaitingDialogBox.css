@@ -53,3 +53,7 @@
     font-weight: bolder;
     cursor: pointer;
 }
+
+.join-btn:active {
+    transform: scale(0.90);
+}
