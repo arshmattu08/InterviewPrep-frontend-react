@@ -13,19 +13,21 @@ const App = () => {
     const sessionStream = useRef(null)
     const sessionRecorder = useRef(null)
     const greetingBuffer = useRef(null)
+    const stream = useRef(null);
 
     const [isFormSubmitted, setFormState] = useState(false)
     const [hasUserJoined, setJoinState] = useState(false)
 
    
 
-    return (  hasUserJoined ? <InterviewPage wsConn ={ws} sessionRec = {sessionRecorder} fileW = {fileWriter} greetingBuffer={greetingBuffer}/> 
+    return (  hasUserJoined ? <InterviewPage wsConn ={ws} sessionRec = {sessionRecorder} fileW = {fileWriter} greetingBuffer={greetingBuffer} stream = {stream}/> 
             : isFormSubmitted ? <InterviewWaitingPage joiningInterview = {setJoinState} 
                                                       wsConn = {ws}
                                                       fileW = {fileWriter}
                                                       sessionStr = {sessionStream}
                                                       sessionRec = {sessionRecorder}
-                                                      greetingBuffer = {greetingBuffer}/> 
+                                                      greetingBuffer = {greetingBuffer}
+                                                      stream ={stream}/> 
             : <FormPage formSubmission ={setFormState}/>
             )
 }

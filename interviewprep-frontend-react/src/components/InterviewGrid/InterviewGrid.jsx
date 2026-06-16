@@ -1,6 +1,6 @@
 import React from "react";
 import "./InterviewGrid.css";
-import avatar from "../../assets/avatar1.jpg"
+import avatar from "../../assets/avatar2.jpeg"
 
 const Grid = () => {
 

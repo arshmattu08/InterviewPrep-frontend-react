@@ -21,7 +21,6 @@ const InterviewPage = (props) => {
     const threshold = 20;
     const isWaitingResponse = useRef(false)
     let recorder = useRef(null);
-    let stream = useRef(null);
     let audio_chunks = useRef([]);
 
 
@@ -38,26 +37,24 @@ const InterviewPage = (props) => {
     }
 
 
-    // const waitForGreeting = async () => {
-    // while (!props.greetingBuffer.current) {
-    //     await new Promise(r => setTimeout(r, 100))
-    // }
-    //     playGreeting()
-    // }
+    const waitForGreeting = async () => {
+    while (!props.greetingBuffer.current) {
+        await new Promise(r => setTimeout(r, 100))
+    }
+        playGreeting()
+    }
 
 
     const initInterview = async () => {
-        stream.current = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation: true}})
-        recorder.current = new MediaRecorder(stream.current);
+        recorder.current = new MediaRecorder(props.stream.current);
         recorder.current.ondataavailable = (event) => audio_chunks.current.push(event.data)
         recorder.current.onstop = () => {
             const blob = new Blob(audio_chunks.current, {type: "audio/webm"});
             isWaitingResponse.current = true;
             props.wsConn.current.send(blob);
             console.log("User Response ended and sent over!");}
-        const mic_source = audioContext.current.createMediaStreamSource(stream.current); 
+        const mic_source = audioContext.current.createMediaStreamSource(props.stream.current); 
         mic_source.connect(analyser.current);
-        playGreeting();
         detectSpeech();
     }
 
@@ -102,6 +99,7 @@ const InterviewPage = (props) => {
 
     useEffect(() => {
         initInterview()
+        waitForGreeting()
     },[])
 
     useEffect(() => {
@@ -118,14 +116,14 @@ const InterviewPage = (props) => {
 
 
     const handleEnd = () => {
-        props.sessionRec.current.onstop = () => {
-            props.fileW.current.close()
-            props.wsConn.current.send(JSON.stringify({"msg":"end"}))
-    }
-        props.sessionRec.current.stop()
+        if (props.sessionRec.current) {
+            props.sessionRec.current.onstop = () => props.fileW.current.close()
+            props.sessionRec.current.stop()
+        }
+         props.wsConn.current.send(JSON.stringify({"msg":"end"}))
         alert("Your interview has been ended successfully.")
-    }
-    
+
+        }
 
 
     return (
