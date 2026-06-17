@@ -39,7 +39,7 @@ const InterviewWaitingPage = (props) => {
 
        const delays = [2000, 3000, 4000, 5000];
        const randomDelay = delays[Math.floor(Math.random() * delays.length)];
-       props.wsConn.current = new WebSocket("ws://192.168.1.68:8000/interview")
+       props.wsConn.current = new WebSocket("wss://interviewprep-backend-eung.onrender.com/interview")
        props.wsConn.current.onopen = () => {
                 console.log("data SENT")
                 props.wsConn.current.send(JSON.stringify(interviewData)) // gonna trigger greeting 
