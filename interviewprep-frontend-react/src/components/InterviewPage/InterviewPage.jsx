@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect, useRef, act} from "react";
 import "./InterviewPage.css"
 import InterviewBar from "../InterviewBar/InterviewBar";
 import Grid from "../InterviewGrid/InterviewGrid";
@@ -21,8 +21,10 @@ const InterviewPage = (props) => {
     const silenceFrames = useRef(null);
     const threshold = 20;
     const isWaitingResponse = useRef(false)
+    const isGreetingPlaying = useRef(false)
     const graceTimer = useRef(null);
-    const shouldInterrupt = useRef(true)
+    let activeSources = useRef([]);
+    let leftoverByte = useRef(null);
     let recorder = useRef(null);
     let audio_chunks = useRef([]);
 
@@ -35,7 +37,10 @@ const InterviewPage = (props) => {
         bufferSource.current.connect(audioContext.current.destination)
         bufferSource.current.start()
         bufferSource.current.onended = () => {
-            isWaitingResponse.current = false}
+        isWaitingResponse.current = false
+        isGreetingPlaying.current = false
+    }
+        
     }
 
 
@@ -72,21 +77,21 @@ const InterviewPage = (props) => {
         onnxWASMBasePath: "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/",
         getStream: () => Promise.resolve(props.stream.current), 
         onSpeechStart: () => {
-            if (shouldInterrupt.current) {
                 console.log("speech started")
                 if (graceTimer.current) clearTimeout(graceTimer.current);
                 if (!isRecording.current) {
-                    if(bufferSource.current) bufferSource.current.stop(), console.log("AI cut off,speech detected")
+                    stopAIPlayback()
+                    console.log("AI cut off")
                     recorder.current.start(250);
                     isRecording.current = true;
-            }}
+            }
         },
         onSpeechEnd: () => {
             console.log("speech ended")
             graceTimer.current = setTimeout(() => {
                 recorder.current.stop();
                 isRecording.current = false;
-                isWaitingResponse.current = true;}, 1500)
+                isWaitingResponse.current = true;}, 750)
 
             },
         onVADMisfire: () => {
@@ -106,45 +111,71 @@ const InterviewPage = (props) => {
 
 
 
-     const detectSpeech = () => {
-        analyser.current.getByteFrequencyData(dataArray.current);
-        const avg_volume = dataArray.current.reduce((a,b) => a + b)/ dataArray.current.length;
+  const audioCtx = useRef(new AudioContext({ sampleRate: 24000 }));
+  let nextStartTime = useRef(0);
 
-          if (!isWaitingResponse.current) {
-          if (avg_volume > threshold){
-            console.log("interrupted! and", avg_volume)
-            silenceStart.current = null;
-            if (!isRecording.current) { // for first time, INTERRUPTION LOGIC
-                if (bufferSource.current) {bufferSource.current.stop()}
-            recorder.current.start(250)
-            isRecording.current = true
-            console.log("Recorder started")}  } 
-        
+ function playPCMChunk(arrayBuffer) {
+    let bytes = new Uint8Array(arrayBuffer);
 
-         else if (isRecording.current){ //recorder is on and volume below threshold = silence, CLIENT IS DONE LOGIC
-            if (!silenceStart.current) {silenceStart.current = Date.now()}
-            if ((Date.now() - silenceStart.current) > SILENCE_LIMIT) {
-            console.log("Silence limit exceeded, stopping recorder...")
-            recorder.current.stop()
-            isRecording.current = false
-            }} 
-   
-        }
-        requestAnimationFrame(detectSpeech)
-        
+    if (leftoverByte.current !== null) {
+    bytes = new Uint8Array([leftoverByte.current, ...bytes]);
+    leftoverByte.current = null;
+  }
+
+  if (bytes.length % 2 !== 0) {
+    leftoverByte.current = bytes[bytes.length - 1];
+    bytes = bytes.slice(0, -1);
+  }
+
+
+  const int16 = new Int16Array(bytes.buffer);
+  const float32 = new Float32Array(int16.length);
+  for (let i = 0; i < int16.length; i++) {
+    float32[i] = int16[i] / 32768;
+  }
+
+  const audioBuffer = audioCtx.current.createBuffer(1, float32.length, 24000);
+  audioBuffer.copyToChannel(float32, 0);
+
+  const source = audioCtx.current.createBufferSource();
+  source.buffer = audioBuffer;
+  source.connect(audioCtx.current.destination);
+  activeSources.current.push(source);
+  source.onended = () => {
+    activeSources.current = activeSources.current.filter(s => s !== source)
+  }
+
+  const startAt = Math.max(audioCtx.current.currentTime, nextStartTime.current);
+  source.start(startAt);
+  nextStartTime.current = startAt + audioBuffer.duration;
+ }
+
+function stopAIPlayback() {
+    if (bufferSource.current) {
+    try { bufferSource.current.stop() } catch(e) {}
     }
+  activeSources.current.forEach(s => { try { s.stop(); } catch(e) {} });
+  activeSources.current = [];
+  nextStartTime.current = audioCtx.current.currentTime;
+}
+
+
 
     props.wsConn.current.onmessage = async (event) => {
-        shouldInterrupt.current = false
-        console.log("AI responding...", event.data)
+        console.log("AI responding...")
         isWaitingResponse.current = false
+
+        if (typeof event.data === "string") {
+        const msg = JSON.parse(event.data)
+        if (msg.msg === "tts_start") {
+            nextStartTime.current = audioCtx.current.currentTime
+        }
+                return
+    }
+
+       //play audio
         const arrayBuffer = await event.data.arrayBuffer()
-        const decoded = await audioContext.current.decodeAudioData(arrayBuffer)
-        bufferSource.current = audioContext.current.createBufferSource()
-        bufferSource.current.buffer = decoded
-        bufferSource.current.connect(audioContext.current.destination)
-        bufferSource.current.start()
-        setTimeout(() => { shouldInterrupt.current = true }, 4000)
+        playPCMChunk(arrayBuffer)
     }
 
 
