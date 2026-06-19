@@ -10,8 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ricky0123/vad-react": "^0.0.36",
     "react": "^19.2.6",
-    "react-dom": "^19.2.6"
+    "react-dom": "^19.2.6",
+    "vite-plugin-static-copy": "^4.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
