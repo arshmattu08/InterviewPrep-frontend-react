@@ -91,7 +91,7 @@ const InterviewPage = (props) => {
             graceTimer.current = setTimeout(() => {
                 recorder.current.stop();
                 isRecording.current = false;
-                isWaitingResponse.current = true;}, 750)
+                isWaitingResponse.current = true;}, 500)
 
             },
         onVADMisfire: () => {
