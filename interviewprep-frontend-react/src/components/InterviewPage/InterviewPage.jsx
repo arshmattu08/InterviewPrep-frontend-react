@@ -12,6 +12,7 @@ const InterviewPage = (props) => {
 
 
     const audioContext = useRef(new AudioContext());
+    const audioCtx = useRef(new AudioContext({ sampleRate: 24000 })); // for TTS playback
     const analyser = useRef(audioContext.current.createAnalyser());
     const dataArray = useRef(new Uint8Array(analyser.current.frequencyBinCount));
     const isRecording = useRef(false)
@@ -78,6 +79,7 @@ const InterviewPage = (props) => {
         getStream: () => Promise.resolve(props.stream.current), 
         onSpeechStart: () => {
                 console.log("speech started")
+                if (isWaitingResponse.current) {return}
                 if (graceTimer.current) clearTimeout(graceTimer.current);
                 if (!isRecording.current) {
                     stopAIPlayback()
@@ -90,8 +92,7 @@ const InterviewPage = (props) => {
             console.log("speech ended")
             graceTimer.current = setTimeout(() => {
                 recorder.current.stop();
-                isRecording.current = false;
-                isWaitingResponse.current = true;}, 500)
+                isRecording.current = false;}, 500)
 
             },
         onVADMisfire: () => {
@@ -102,7 +103,6 @@ const InterviewPage = (props) => {
         if (isRecording.current) {
         recorder.current.stop()
         isRecording.current = false
-        isWaitingResponse.current = false
             }
         }
         })
@@ -111,7 +111,6 @@ const InterviewPage = (props) => {
 
 
 
-  const audioCtx = useRef(new AudioContext({ sampleRate: 24000 }));
   let nextStartTime = useRef(0);
 
  function playPCMChunk(arrayBuffer) {
@@ -140,6 +139,7 @@ const InterviewPage = (props) => {
   const source = audioCtx.current.createBufferSource();
   source.buffer = audioBuffer;
   source.connect(audioCtx.current.destination);
+
   activeSources.current.push(source);
   source.onended = () => {
     activeSources.current = activeSources.current.filter(s => s !== source)
@@ -150,6 +150,7 @@ const InterviewPage = (props) => {
   nextStartTime.current = startAt + audioBuffer.duration;
  }
 
+
 function stopAIPlayback() {
     if (bufferSource.current) {
     try { bufferSource.current.stop() } catch(e) {}
@@ -157,6 +158,7 @@ function stopAIPlayback() {
   activeSources.current.forEach(s => { try { s.stop(); } catch(e) {} });
   activeSources.current = [];
   nextStartTime.current = audioCtx.current.currentTime;
+  props.wsConn.current.send(JSON.stringify({"msg": "interrupt"}))
 }
 
 
