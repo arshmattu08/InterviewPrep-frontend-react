@@ -206,6 +206,7 @@ function stopAIPlayback() {
         }
          props.wsConn.current.send(JSON.stringify({"msg":"end"}))
         alert("Your interview has been ended successfully.")
+        props.userDone(true)
 
         }
 

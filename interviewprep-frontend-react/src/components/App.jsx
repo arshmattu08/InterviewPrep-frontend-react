@@ -2,6 +2,7 @@ import React, {useState,useEffect, useRef} from "react"
 import FormPage from "./FormPage/FormPage"
 import InterviewWaitingPage from "./InterviewWaitingPage/InterviewWaitingPage"
 import InterviewPage from "./InterviewPage/InterviewPage"
+import InterviewDonePage from "./InterviewDone/InterviewDone"
 
 
 
@@ -17,10 +18,17 @@ const App = () => {
 
     const [isFormSubmitted, setFormState] = useState(false)
     const [hasUserJoined, setJoinState] = useState(false)
+    const [isUserDone, setUserDone] = useState(false)
 
    
 
-    return (  hasUserJoined ? <InterviewPage wsConn ={ws} sessionRec = {sessionRecorder} fileW = {fileWriter} greetingBuffer={greetingBuffer} stream = {stream}/> 
+    return (isUserDone ? <InterviewDonePage /> 
+            : hasUserJoined ? <InterviewPage wsConn ={ws} 
+                                            sessionRec = {sessionRecorder} 
+                                            fileW = {fileWriter} 
+                                            greetingBuffer={greetingBuffer} 
+                                            stream = {stream}
+                                            userDone = {setUserDone}/> 
             : isFormSubmitted ? <InterviewWaitingPage joiningInterview = {setJoinState} 
                                                       wsConn = {ws}
                                                       fileW = {fileWriter}
