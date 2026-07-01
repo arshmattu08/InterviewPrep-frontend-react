@@ -1,13 +1,24 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "./InterviewDone.css";
 
-const InterviewDonePage = () => {
+const InterviewDonePage = (props) => {
+
+
+    const [feedbackReport, setFeedbackReport] = useState("")
+
+
+
+    useEffect(() => {
+        props.wsConn.current.onmessage = (event) => {
+            setfeedbackReport(event.data)
+        }
+    },[])
 
 
     return <div>
         
         <label> <h5>Feedback Report:</h5> </label>
-        <button>Download Report</button>
+        <p>{feedbackReport}</p>
 
          <label> <h5>Recording:</h5> </label>
         <button>Download Recording</button>
@@ -15,6 +26,8 @@ const InterviewDonePage = () => {
 
 
     </div>
+
+
 }
 
 
