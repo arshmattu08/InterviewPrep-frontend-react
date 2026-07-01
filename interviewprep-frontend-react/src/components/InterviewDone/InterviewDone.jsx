@@ -4,7 +4,17 @@ import "./InterviewDone.css";
 const InterviewDonePage = () => {
 
 
-    return <div>Interview is Done.</div>
+    return <div>
+        
+        <label> <h5>Feedback Report:</h5> </label>
+        <button>Download Report</button>
+
+         <label> <h5>Recording:</h5> </label>
+        <button>Download Recording</button>
+
+
+
+    </div>
 }
 
 
