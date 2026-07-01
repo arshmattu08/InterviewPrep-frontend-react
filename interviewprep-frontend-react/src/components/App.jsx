@@ -22,7 +22,7 @@ const App = () => {
 
    
 
-    return (isUserDone ? <InterviewDonePage /> 
+    return (isUserDone ? <InterviewDonePage wsConn = {ws}/> 
             : hasUserJoined ? <InterviewPage wsConn ={ws} 
                                             sessionRec = {sessionRecorder} 
                                             fileW = {fileWriter} 
