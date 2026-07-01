@@ -10,7 +10,7 @@ const InterviewDonePage = (props) => {
 
     useEffect(() => {
         props.wsConn.current.onmessage = (event) => {
-            setfeedbackReport(event.data)
+            setFeedbackReport(event.data)
         }
     },[])
 
