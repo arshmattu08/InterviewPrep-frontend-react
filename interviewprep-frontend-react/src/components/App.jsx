@@ -15,6 +15,8 @@ const App = () => {
     const sessionRecorder = useRef(null)
     const greetingBuffer = useRef(null)
     const stream = useRef(null);
+    const recordedChunks = useRef([])
+
 
     const [isFormSubmitted, setFormState] = useState(false)
     const [hasUserJoined, setJoinState] = useState(false)
@@ -22,7 +24,7 @@ const App = () => {
 
    
 
-    return (isUserDone ? <InterviewDonePage wsConn = {ws}/> 
+    return (isUserDone ? <InterviewDonePage wsConn = {ws} recordedChunks={recordedChunks}/> 
             : hasUserJoined ? <InterviewPage wsConn ={ws} 
                                             sessionRec = {sessionRecorder} 
                                             fileW = {fileWriter} 
@@ -35,7 +37,8 @@ const App = () => {
                                                       sessionStr = {sessionStream}
                                                       sessionRec = {sessionRecorder}
                                                       greetingBuffer = {greetingBuffer}
-                                                      stream ={stream}/> 
+                                                      stream ={stream}
+                                                      recordedChunks={recordedChunks}/> 
             : <FormPage formSubmission ={setFormState}/>
             )
 }

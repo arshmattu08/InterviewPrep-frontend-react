@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import "./InterviewWaitingPage.css"
 import WaitingDialogBox  from "../WaitingDialogBox/WaitingDialogBox";
 
@@ -15,22 +15,43 @@ const InterviewWaitingPage = (props) => {
 
         if (data.recordingOption == "No Recording"){return}
 
-        const fileHandle = await window.showSaveFilePicker({suggestedName: "recording.webm"})
-        props.fileW.current = await fileHandle.createWritable()
+        //chrome
+        if (window.showSaveFilePicker) {
+
+            const fileHandle = await window.showSaveFilePicker({suggestedName: "recording.webm"})
+            props.fileW.current = await fileHandle.createWritable()
 
 
-        if (data.recordingOption == "Audio and Video") {
-            props.sessionStr.current = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false},video:true})
-            props.sessionRec.current = new MediaRecorder(props.sessionStr.current);
-            props.sessionRec.current.ondataavailable = async (event) => {props.fileW.current.write(event.data);}
-            props.sessionRec.current.start()}
+            if (data.recordingOption == "Audio and Video") {
+                props.sessionStr.current = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false},video:true})
+                props.sessionRec.current = new MediaRecorder(props.sessionStr.current);
+                props.sessionRec.current.ondataavailable = async (event) => {props.fileW.current.write(event.data);}
+                props.sessionRec.current.start()}
 
-        else if (data.recordingOption == "Audio Only") {
-            props.sessionStr.current = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false}})
-            props.sessionRec.current = new MediaRecorder(props.sessionStr.current);
-            props.sessionRec.current.ondataavailable = async (event) => {props.fileW.current.write(event.data);}
-            props.sessionRec.current.start()}
-            
+            else if (data.recordingOption == "Audio Only") {
+                props.sessionStr.current = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false}})
+                props.sessionRec.current = new MediaRecorder(props.sessionStr.current);
+                props.sessionRec.current.ondataavailable = async (event) => {props.fileW.current.write(event.data);}
+                props.sessionRec.current.start()}
+           
+        }
+        //safari
+        else {
+
+            if (data.recordingOption == "Audio and Video") {
+                props.sessionStr.current = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false},video:true})
+                props.sessionRec.current = new MediaRecorder(props.sessionStr.current);
+                props.sessionRec.current.ondataavailable = async (event) => {props.recordedChunks.current.push(event.data);}
+                props.sessionRec.current.start()}
+
+            else if (data.recordingOption == "Audio Only") {
+                props.sessionStr.current = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false}})
+                props.sessionRec.current = new MediaRecorder(props.sessionStr.current);
+                props.sessionRec.current.ondataavailable = async (event) => {props.recordedChunks.current.push(event.data);}
+                props.sessionRec.current.start()}
+
+        }
+
         } 
 
 

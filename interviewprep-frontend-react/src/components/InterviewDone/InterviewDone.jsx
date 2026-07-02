@@ -15,14 +15,29 @@ const InterviewDonePage = (props) => {
     },[])
 
 
+    const handleDownload = () => {
+        const blob = new Blob(props.recordedChunks.current)
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'recording.webm';
+        a.click();
+        URL.revokeObjectURL(url);
+
+
+    }
+
+
+
+
     return <div>
         
         <label> <h5>Feedback Report:</h5> </label>
         <p>{feedbackReport}</p>
 
-         <label> <h5>Recording:</h5> </label>
-        <button>Download Recording</button>
-
+       
+        <label> <h5>Recording:</h5> </label>
+        {props.recordedChunks.current.length > 0 ? <button onClick={handleDownload}>Download Recording</button> 
+        : "Your recording should be saved to your device if you chose to record."}
 
 
     </div>
