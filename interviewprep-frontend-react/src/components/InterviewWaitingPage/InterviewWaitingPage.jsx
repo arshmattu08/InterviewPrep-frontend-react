@@ -62,8 +62,8 @@ const InterviewWaitingPage = (props) => {
        const randomDelay = delays[Math.floor(Math.random() * delays.length)];
        props.wsConn.current = new WebSocket("wss://impolite-buckle-harddisk.ngrok-free.dev/interview")
        props.wsConn.current.onopen = () => {
+                props.wsConn.current.send(JSON.stringify(interviewData))
                 console.log("data SENT")
-                props.wsConn.current.send(JSON.stringify(interviewData)) // gonna trigger greeting 
                 props.wsConn.current.onmessage = (event) => {
                     props.greetingBuffer.current= event.data }
 

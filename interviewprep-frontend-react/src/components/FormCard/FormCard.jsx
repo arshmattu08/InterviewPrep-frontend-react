@@ -1,7 +1,7 @@
 import React from "react";
 import "./FormCard.css"
 
-
+// receive destructured props from FormPage.jsx
 const FormCard = ({jobDescription, setJobDescription, additionalContext, setAdditionalContext,
                     recordingOption,setRecordingOption, handleSubmit}) => {
 
@@ -24,7 +24,7 @@ const FormCard = ({jobDescription, setJobDescription, additionalContext, setAddi
 
 
             <div>
-                <label className={"label"}>Recording (only chrome is supported as of now):</label>
+                <label className={"label"}>Recording:</label>
                 <select value={recordingOption} onChange={(e) => {setRecordingOption(e.target.value)}}>
                     <option value="No Recording">No Recording</option>
                     <option value="Audio Only"> Audio Only</option>

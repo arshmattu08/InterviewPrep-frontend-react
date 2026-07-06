@@ -77,6 +77,7 @@ const InterviewPage = (props) => {
         baseAssetPath: "https://cdn.jsdelivr.net/npm/@ricky0123/vad-web@0.0.30/dist/",
         onnxWASMBasePath: "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/",
         getStream: () => Promise.resolve(props.stream.current), 
+        positiveSpeechThreshold: 0.7,
         onSpeechStart: () => {
                 console.log("speech started")
                 if (isWaitingResponse.current) {return}
