@@ -1,7 +1,7 @@
 import React, {useState,useEffect, useRef} from "react"
-import FormPage from "./FormPage/FormPage"
-import InterviewWaitingPage from "./InterviewWaitingPage/InterviewWaitingPage"
-import InterviewPage from "./InterviewPage/InterviewPage"
+import FormPage from "../Pages/FormPage/FormPage"
+import InterviewWaitingPage from "../Pages/InterviewWaitingPage/InterviewWaitingPage"
+import InterviewPage from "../Pages/InterviewPage/InterviewPage"
 import InterviewDonePage from "./InterviewDone/InterviewDone"
 
 

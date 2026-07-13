@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from "react";
 import "./FormPage.css"
-import FormCard from "../FormCard/FormCard";
+import FormCard from "../../components/FormCard/FormCard"
 
 const FormPage = (props) => {
 

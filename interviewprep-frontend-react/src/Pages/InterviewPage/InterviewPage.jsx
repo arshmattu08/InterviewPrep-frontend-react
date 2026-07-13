@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef, act} from "react";
 import "./InterviewPage.css"
-import InterviewBar from "../InterviewBar/InterviewBar";
-import Grid from "../InterviewGrid/InterviewGrid";
+import InterviewBar from "../../components/InterviewBar/InterviewBar";
+import Grid from "../../components/InterviewGrid/InterviewGrid"
 import InterviewWaitingPage from "../InterviewWaitingPage/InterviewWaitingPage";
 import {useMicVAD} from "@ricky0123/vad-react";
 

@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
-import "./InterviewWaitingPage.css"
-import WaitingDialogBox  from "../WaitingDialogBox/WaitingDialogBox";
+import "./InterviewWaitingPage.css";
+import WaitingDialogBox  from "../../components/WaitingDialogBox/WaitingDialogBox";
 
 const InterviewWaitingPage = (props) => {
 
