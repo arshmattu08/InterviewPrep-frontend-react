@@ -1,22 +1,25 @@
 import React, {useEffect, useState} from "react";
 import "./InterviewDone.css";
+import { AppContext } from "../App";
+import { useContext } from "react";
 
-const InterviewDonePage = (props) => {
+const InterviewDonePage = () => {
 
 
     const [feedbackReport, setFeedbackReport] = useState("")
+    const {ws, recordedChunks} = useContext(AppContext)
 
 
 
     useEffect(() => {
-        props.wsConn.current.onmessage = (event) => {
+        ws.current.onmessage = (event) => {
             setFeedbackReport(event.data)
         }
     },[])
 
 
     const handleDownload = () => {
-        const blob = new Blob(props.recordedChunks.current)
+        const blob = new Blob(recordedChunks.current)
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url; a.download = 'recording.webm';
@@ -36,7 +39,7 @@ const InterviewDonePage = (props) => {
 
        
         <label> <h5>Recording:</h5> </label>
-        {props.recordedChunks.current.length > 0 ? <button onClick={handleDownload}>Download Recording</button> 
+        {recordedChunks.current.length > 0 ? <button onClick={handleDownload}>Download Recording</button> 
         : "Your recording should be saved to your device if you chose to record."}
 
 
