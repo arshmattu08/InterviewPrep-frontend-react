@@ -1,19 +1,21 @@
 import React, {useState,useEffect} from "react";
 import "./FormPage.css"
 import FormCard from "../../components/FormCard/FormCard"
+import { useNavigate } from "react-router-dom";
 
-const FormPage = (props) => {
+const FormPage = () => {
 
     const [jobDescription, setJobDescription] = useState('')
     const [additionalContext, setAdditionalContext] = useState('')
     const [recordingOption, setRecordingOption] = useState('No Recording')
+    const navigate = useNavigate()
 
 
     const handleSubmit = () => {
         console.log("submitted!")
         if (!jobDescription.trim()) return;
         localStorage.setItem("interviewData", JSON.stringify({jobDescription,additionalContext,recordingOption}))
-        props.formSubmission(true);
+        navigate("/waitingpage")
     }
 
     return (
