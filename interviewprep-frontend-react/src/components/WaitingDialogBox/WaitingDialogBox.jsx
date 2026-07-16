@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import "./WaitingDialogBox.css"
 
 
-const WaitingDialogBox = ({joinInterview, getPermissions, interviewData, isUserReady}) => {
+const WaitingDialogBox = ({joinInterview,interviewData, isUserReady}) => {
 
 
     return (

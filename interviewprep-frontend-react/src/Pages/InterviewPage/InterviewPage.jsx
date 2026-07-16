@@ -4,9 +4,16 @@ import InterviewBar from "../../components/InterviewBar/InterviewBar";
 import Grid from "../../components/InterviewGrid/InterviewGrid"
 import InterviewWaitingPage from "../InterviewWaitingPage/InterviewWaitingPage";
 import {useMicVAD} from "@ricky0123/vad-react";
+import { AppContext } from "../../components/App";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 
-const InterviewPage = (props) => {
+const InterviewPage = () => {
+
+
+    const {greetingBuffer,stream, ws, sessionRecorder, fileWriter} = useContext(AppContext)
+    const navigate = useNavigate()
 
     const [time, setTime] = useState(0);
 
@@ -31,7 +38,7 @@ const InterviewPage = (props) => {
 
 
     const playGreeting = async () => {
-        const arrayBuffer = await props.greetingBuffer.current.arrayBuffer()
+        const arrayBuffer = await greetingBuffer.current.arrayBuffer()
         const decoded = await audioContext.current.decodeAudioData(arrayBuffer)
         bufferSource.current = audioContext.current.createBufferSource()
         bufferSource.current.buffer = decoded
@@ -46,7 +53,7 @@ const InterviewPage = (props) => {
 
 
     const waitForGreeting = async () => {
-    while (!props.greetingBuffer.current) {
+    while (!greetingBuffer.current) {
         await new Promise(r => setTimeout(r, 100))
     }
         playGreeting()
@@ -54,19 +61,19 @@ const InterviewPage = (props) => {
 
 
     const initInterview = async () => {
-        recorder.current = new MediaRecorder(props.stream.current);
+        recorder.current = new MediaRecorder(stream.current);
         recorder.current.ondataavailable = (event) => {
                  if (event.data.size > 0) {
-                         props.wsConn.current.send(event.data);
+                         ws.current.send(event.data);
                                             }
                     }
 
         recorder.current.onstop = () => {
             isWaitingResponse.current = true;
-            props.wsConn.current.send(JSON.stringify({"msg":"user_done"})); 
+            ws.current.send(JSON.stringify({"msg":"user_done"})); 
             console.log("User response is done")
         }
-        const mic_source = audioContext.current.createMediaStreamSource(props.stream.current); 
+        const mic_source = audioContext.current.createMediaStreamSource(stream.current); 
         mic_source.connect(analyser.current);
         // detectSpeech();
     }
@@ -76,7 +83,7 @@ const InterviewPage = (props) => {
     const vad = useMicVAD({
         baseAssetPath: "https://cdn.jsdelivr.net/npm/@ricky0123/vad-web@0.0.30/dist/",
         onnxWASMBasePath: "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/",
-        getStream: () => Promise.resolve(props.stream.current), 
+        getStream: () => Promise.resolve(stream.current), 
         positiveSpeechThreshold: 0.9,
         onSpeechStart: () => {
                 console.log("speech started")
@@ -159,12 +166,12 @@ function stopAIPlayback() {
   activeSources.current.forEach(s => { try { s.stop(); } catch(e) {} });
   activeSources.current = [];
   nextStartTime.current = audioCtx.current.currentTime;
-  props.wsConn.current.send(JSON.stringify({"msg": "interrupt"}))
+  ws.current.send(JSON.stringify({"msg": "interrupt"}))
 }
 
 
 
-    props.wsConn.current.onmessage = async (event) => {
+    ws.current.onmessage = async (event) => {
         console.log("AI responding...")
         isWaitingResponse.current = false
 
@@ -201,13 +208,13 @@ function stopAIPlayback() {
 
 
     const handleEnd = () => {
-        if (props.sessionRec.current) {
-            props.sessionRec.current.onstop = () => props.fileW.current.close()
-            props.sessionRec.current.stop()
+        if (sessionRecorder.current) {
+            sessionRecorder.current.onstop = () => fileWriter.current.close()
+            sessionRecorder.current.stop()
         }
-         props.wsConn.current.send(JSON.stringify({"msg":"end"}))
+         ws.current.send(JSON.stringify({"msg":"end"}))
         alert("Your interview has been ended successfully.")
-        props.userDone(true)
+       navigate("/interviewdonepage")
 
         }
 
