@@ -3,6 +3,7 @@ import "./LandingPage.css"
 import { Link } from "react-router-dom";
 import HemiSphere from "../../components/HemiSphere/HemiSphere";
 import Button from "../../components/Button/Button";
+import FAQItem from "../../components/FAQItem/FAQItem";
 
 
 const LandingPage = () => {
@@ -16,6 +17,17 @@ const LandingPage = () => {
             <p id="try-line"> Try <i>fyi</i> to simulate real world interviews.</p>
 
             <Button label={<b>Get Started!</b>}/>
+        </div>
+
+        <div id="faq-wrapper">
+
+            <FAQItem question={"What is the app really about?"} answer={
+                "It is about interview practice!"
+            }/>
+            <FAQItem question={"How much do I need to pay?"} answer={
+                "Just $2.99 per 20 min session. It is pay as you go."
+            }/>
+
         </div>
 
         {/* <Button label={<b>Get Started!</b>}/> */}

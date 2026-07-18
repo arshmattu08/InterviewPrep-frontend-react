@@ -17,3 +17,13 @@
     margin-top: 75px;
     margin-bottom: 75px;
 }
+
+#faq-wrapper{
+    display: flex;
+    border: 1px solid red;
+    width: 100%;
+    height: 50%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
