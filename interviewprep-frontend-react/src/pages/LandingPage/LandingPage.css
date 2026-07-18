@@ -1,0 +1,19 @@
+#hero-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+#questions {
+    font-size: 38px;
+    font-weight: lighter;
+    margin-top: 150px;
+}
+
+#try-line {
+    font-size: 40px;
+    font-weight: bold;
+    margin-top: 75px;
+    margin-bottom: 75px;
+}

@@ -12,9 +12,20 @@ const HemiSphere = () => {
             
           <div id="hemisphere">
 
-            <p>Pricing</p>
+            <button id= "pricing" className="nav-btn">Pricing</button>
             <img id = "logo" src={Logo}></img>
-            <p>Account</p>
+            <button id="account" className="nav-btn">Account</button>
+            <button id="resources"className="nav-btn">Resources</button>
+
+
+
+
+
+
+
+
+
+
 
           </div>
         
