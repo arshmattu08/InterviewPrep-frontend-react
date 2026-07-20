@@ -8,11 +8,11 @@ const FAQItem = ({question, answer}) => {
 
     return (
         <>
-        <div id="faq-item">
+        <div id="faq-item" onClick={() => setisOpen(!isOpen)}>
 
-            <button onClick={() => setisOpen(!isOpen)}>
+            <p id ="faq-question">
                 {question}
-            </button>
+            </p>
 
             <p className={`faq-answer ${isOpen ? 'open': ''}`}>{answer}</p>
 

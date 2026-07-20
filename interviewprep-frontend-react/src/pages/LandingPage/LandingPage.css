@@ -20,10 +20,40 @@
 
 #faq-wrapper{
     display: flex;
-    border: 1px solid red;
+    /* border: 1px solid purple; */
     width: 100%;
     height: 50%;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+#faq-title {
+    margin: 5%;
+}
+
+hr{
+    border: none;
+    border-top: 1px solid black;
+    width: 75%;
+    margin-top: 5%;
+}
+
+#process-steps-wrapper {
+    border: 1px solid red;
+    width: 100%;
+    height: 50%;
+    text-align: center;
+    font-family: 'Jacques Francois', Helvetica , Times, serif;
+    font-size: 40px;
+    margin-top: 50px;
+}
+
+#process-steps {
+    width: 100%;
+    height: 70%;
+    border: 1px solid green;
+    display: flex;
+    justify-content: space-evenly;
     align-items: center;
 }

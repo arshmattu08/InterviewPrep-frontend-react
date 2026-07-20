@@ -4,9 +4,16 @@ import { Link } from "react-router-dom";
 import HemiSphere from "../../components/HemiSphere/HemiSphere";
 import Button from "../../components/Button/Button";
 import FAQItem from "../../components/FAQItem/FAQItem";
+import ProcessStep from "../../components/ProcessStep/ProcessStep";
 
 
 const LandingPage = () => {
+
+    const steps = [
+        {number:1, title: "Form", text: "Fill out a form with appropriate job description and any extra context about you or the role/company you preparing for.", icon: ""},
+        {number:2, title: "Waiting Page", text: "This is where you’re ready to join the call and provide mic/camera permissions if needed.", icon: ""},
+        {number:3, title: "Interview", text: "Interview begins!", icon: ""}
+    ];
 
     return (
         <>
@@ -19,7 +26,31 @@ const LandingPage = () => {
             <Button label={<b>Get Started!</b>}/>
         </div>
 
+        
+
+        <div id="process-steps-wrapper">
+
+            <p>How It Works</p>
+                    
+                <div id="process-steps">
+
+                    {steps.map((step) => (
+                        <ProcessStep key={step.number} {...step}/>
+                    )) }
+
+                </div>
+
+
+
+        </div>
+
+
+
         <div id="faq-wrapper">
+
+            <div id="faq-title">
+                <h1>Frequently Asked Questions (FAQs)</h1>
+                </div>
 
             <FAQItem question={"What is the app really about?"} answer={
                 "It is about interview practice!"
@@ -30,16 +61,6 @@ const LandingPage = () => {
 
         </div>
 
-        {/* <Button label={<b>Get Started!</b>}/> */}
-
-
-
-        {/* <h1>This is home page</h1>
-        <Link to={"/form"}>Form</Link> */}
-
-        {/* <Link to={"/waitingpage"}>WaitingPage</Link>
-        <Link to={"/interviewpage"}>InterviewPage</Link>
-        <Link to={"/interviewdonepage"}>DonePage</Link> */}
 
         </>
     )

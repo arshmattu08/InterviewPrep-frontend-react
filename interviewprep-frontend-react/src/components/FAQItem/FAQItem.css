@@ -1,9 +1,16 @@
 #faq-item{
-    font-size: 20ox;
-    border: 1px solid blue;
-    width: 20%;
+    /* border: 1px solid blue; */
+    width: 40%;
     text-align: left;
+    padding: 5px 10px 5px 10px;
+    cursor: pointer;
 }
+
+#faq-question {
+    font-size: 22px;
+     background-color: #f2f0f0;
+}
+
 
 .faq-answer {
     overflow: hidden;
@@ -12,5 +19,5 @@
 }
 
 .faq-answer.open {
-    max-height: 50px;
+    max-height: 40px;
 }
