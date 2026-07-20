@@ -5,14 +5,18 @@ import HemiSphere from "../../components/HemiSphere/HemiSphere";
 import Button from "../../components/Button/Button";
 import FAQItem from "../../components/FAQItem/FAQItem";
 import ProcessStep from "../../components/ProcessStep/ProcessStep";
+import formicon from "../../assets/formicon.svg";
+import headset from "../../assets/headset.svg";
+import desktop from "../../assets/desktop.svg";
+
 
 
 const LandingPage = () => {
 
     const steps = [
-        {number:1, title: "Form", text: "Fill out a form with appropriate job description and any extra context about you or the role/company you preparing for.", icon: ""},
-        {number:2, title: "Waiting Page", text: "This is where you’re ready to join the call and provide mic/camera permissions if needed.", icon: ""},
-        {number:3, title: "Interview", text: "Interview begins!", icon: ""}
+        {number:1, title: "Form", text: "Fill out a form with appropriate job description and any extra context about you or the role/company you preparing for.", icon: formicon},
+        {number:2, title: "Waiting Page", text: "This is where you’re ready to join the call and provide mic/camera permissions if needed.", icon: headset},
+        {number:3, title: "Interview", text: "Interview begins!", icon: desktop}
     ];
 
     return (
