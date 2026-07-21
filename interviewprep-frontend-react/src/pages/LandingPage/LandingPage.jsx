@@ -9,6 +9,7 @@ import formicon from "../../assets/formicon.svg";
 import headset from "../../assets/headset.svg";
 import desktop from "../../assets/desktop.svg";
 import IndianaMap from "../../assets/IndianaMap.svg";
+import Footer from "../../components/Footer/Footer";
 
 
 
@@ -28,7 +29,7 @@ const LandingPage = () => {
             <p id="questions">Nervous about your next interview? </p>
             <p id="try-line"> Try <i>fyi</i> to simulate real world interviews.</p>
 
-            <Button label={<b>Get Started!</b>}/>
+            <Link to={"/form"}> <Button label={<b>Get Started!</b>}/> </Link>
         </div>
 
         <p className="titles">How It Works</p>
@@ -77,12 +78,9 @@ const LandingPage = () => {
 
         </div>
 
-        <div id="footer">
-            <button className="footer-btn">Privacy Policy</button>
-            <button className="footer-btn">Terms and Conditions</button>
-            <button className="footer-btn">Contact Us</button>
+        
 
-        </div>
+        <Footer/>
 
 
         </>

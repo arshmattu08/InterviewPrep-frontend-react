@@ -1,6 +1,7 @@
 import React from "react";
 import "./HemiSphere.css";
-import Logo from "../../assets/logo1.svg"
+import Logo from "../../assets/logo1.svg";
+import { Link } from "react-router-dom";
 
 
 const HemiSphere = () => {
@@ -12,8 +13,8 @@ const HemiSphere = () => {
             
           <div id="hemisphere">
 
-            <button id= "pricing" className="nav-btn">Pricing</button>
-            <img id = "logo" src={Logo}></img>
+            <Link to={"/pricing"}> <button id= "pricing" className="nav-btn">Pricing</button> </Link>
+            <Link to={"/"}> <img id = "logo" src={Logo}></img> </Link>
             <button id="account" className="nav-btn">Account</button>
             <button id="resources"className="nav-btn">Resources</button>
 

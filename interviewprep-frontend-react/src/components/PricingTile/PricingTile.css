@@ -1,0 +1,13 @@
+#pricing-tile {
+    width: 20%;
+    height: 60%;
+    background-color: black;
+    color: white;
+    border: 2px solid cyan;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    padding: 10px 0px 10px 0px;
+}
