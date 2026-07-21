@@ -1,14 +1,20 @@
 #process-step{
     width: 25%;
-    height: 80%;
+    height: 75%;
     background-color: black;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     font-size: 14px;
     color: white;
+    transition: transform 0.2s ease, border 0.2s ease;
+}
+
+#process-step:hover {
+    transform: scale(1.03);
+    border: 2px solid #61CBF4;
 }
 
 #number-div{
@@ -27,6 +33,7 @@ justify-content: center;
 
 #text {
  font-size: 14px;
+ text-align: center;
 }
 
 .icons {
