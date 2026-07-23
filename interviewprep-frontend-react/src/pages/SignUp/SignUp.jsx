@@ -3,6 +3,8 @@ import "./SignUp.css";
 import HemiSphere from "../../components/HemiSphere/HemiSphere";
 import Button from "../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Footer from "../../components/Footer/Footer";
 
 const SignUp = () => {
 
@@ -87,11 +89,14 @@ const handleSubmit =  async(e) => {
 
                 </form>
 
-                <p>Already have an account? <b style={{color:'#0687FF', cursor:'pointer'}}>Login</b></p>
+                <p>Already have an account? <Link to={"/login"}> <b style={{color:'#0687FF', cursor:'pointer'}}>Login</b> </Link> </p>
                 
             </div>
 
         </div>
+
+        <Footer/>
+
 
         </>
     )

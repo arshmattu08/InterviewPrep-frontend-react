@@ -5,7 +5,8 @@ import InterviewPage from "../pages/InterviewPage/InterviewPage"
 import InterviewDonePage from "./InterviewDone/InterviewDone"
 import LandingPage from "../pages/LandingPage/LandingPage"
 import Pricing from "../pages/Pricing/Pricing"
-import SignUp from "../pages/SignUp/SignUp"
+import SignUp from "../pages/SignUp/SignUp";
+import Login from "../pages/Login/Login"
 // Routing for Page Navigation
 import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 
@@ -39,6 +40,7 @@ const App = () => {
                 <Route path="/" element={<LandingPage/>}/>
                 <Route path="/pricing" element={<Pricing/>}/>
                 <Route path="/account" element={<SignUp/>}/>
+                <Route path="/login" element={<Login/>}/>
                 <Route path="/form" element={<FormPage/>}/>
                 <Route path="/waitingpage" element={<InterviewWaitingPage/>}/>
                 <Route path="/interviewpage" element={<InterviewPage/>}/>
