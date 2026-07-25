@@ -4,12 +4,17 @@ import Hemisphere from "../../components/HemiSphere/HemiSphere";
 import Button from "../../components/Button/Button";
 import Footer from "../../components/Footer/Footer";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../components/App";
+import { useContext } from "react";
 
 const Login = () => {
 
     const [loginForm, setloginForm] = useState({email:'',password:''})
     const [message, setMessage] = useState('')
     const [error, setError] = useState('')
+
+    const navigate = useNavigate()
+    const {setAccessToken} = useContext(AppContext)
 
 
 
@@ -37,6 +42,9 @@ const Login = () => {
 
         if(res.ok){
              setMessage("Login Successful")
+             setAccessToken(data.access_token)
+             navigate("/PublicLandingPage")
+
         }
 
         if(!res.ok) {

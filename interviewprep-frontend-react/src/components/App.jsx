@@ -4,11 +4,12 @@ import InterviewWaitingPage from "../pages/InterviewWaitingPage/InterviewWaiting
 import InterviewPage from "../pages/InterviewPage/InterviewPage"
 import InterviewDonePage from "./InterviewDone/InterviewDone"
 import LandingPage from "../pages/LandingPage/LandingPage"
+import PublicLandingPage from "../pages/PublicLandingPage/PublicLandingPage"
 import Pricing from "../pages/Pricing/Pricing"
 import SignUp from "../pages/SignUp/SignUp";
-import Login from "../pages/Login/Login"
-// Routing for Page Navigation
-import { HashRouter as Router, Routes, Route } from 'react-router-dom'
+import Login from "../pages/Login/Login";
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import ProtectedRoute from "./ProtectedRoute/ProtectedRoute"
 
 const AppContext = createContext();
 
@@ -20,9 +21,10 @@ const AppProvider = ({children}) => {
         const greetingBuffer = useRef(null)
         const stream = useRef(null);
         const recordedChunks = useRef([])
+        const [accessToken, setAccessToken] = useState(null)
 
         return (
-            <AppContext.Provider value={{ws,fileWriter,sessionStream,sessionRecorder,greetingBuffer,stream,recordedChunks}}>
+            <AppContext.Provider value={{ws,fileWriter,sessionStream,sessionRecorder,greetingBuffer,stream,recordedChunks, accessToken, setAccessToken}}>
                 {children}
             </AppContext.Provider>
         )
@@ -41,6 +43,8 @@ const App = () => {
                 <Route path="/pricing" element={<Pricing/>}/>
                 <Route path="/account" element={<SignUp/>}/>
                 <Route path="/login" element={<Login/>}/>
+                <Route path="/PublicLandingPage" element = {
+                    <ProtectedRoute> <PublicLandingPage/>  </ProtectedRoute> } />
                 <Route path="/form" element={<FormPage/>}/>
                 <Route path="/waitingpage" element={<InterviewWaitingPage/>}/>
                 <Route path="/interviewpage" element={<InterviewPage/>}/>
