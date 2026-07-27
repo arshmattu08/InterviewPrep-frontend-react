@@ -29,7 +29,7 @@ const LandingPage = () => {
             <p id="questions">Nervous about your next interview? </p>
             <p id="try-line"> Try <i>fyi</i> to simulate real world interviews.</p>
 
-            <Link to={"/PublicLandingPage"}> <Button label={<b>Get Started!</b>}/> </Link>
+            <Link to={"/form"}> <Button label={<b>Get Started!</b>}/> </Link>
         </div>
 
         <p className="titles">How It Works</p>

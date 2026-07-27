@@ -4,7 +4,7 @@ import InterviewWaitingPage from "../pages/InterviewWaitingPage/InterviewWaiting
 import InterviewPage from "../pages/InterviewPage/InterviewPage"
 import InterviewDonePage from "./InterviewDone/InterviewDone"
 import LandingPage from "../pages/LandingPage/LandingPage"
-import PublicLandingPage from "../pages/PublicLandingPage/PublicLandingPage"
+import UserLandingPage from "../pages/UserLandingPage/UserLandingPage"
 import Pricing from "../pages/Pricing/Pricing"
 import SignUp from "../pages/SignUp/SignUp";
 import Login from "../pages/Login/Login";
@@ -21,8 +21,11 @@ const AppProvider = ({children}) => {
         const greetingBuffer = useRef(null)
         const stream = useRef(null);
         const recordedChunks = useRef([])
+
         const [accessToken, setAccessToken] = useState(null)
         const [isCheckingAuth, setCheckingAuth] = useState(true)
+        const [isLoggedIn, setLoggedIn] = useState(false)
+        const [currentUser, setCurrentUser] = useState({})
 
         useEffect(() => {
             const checkAuth = async () => {
@@ -32,6 +35,7 @@ const AppProvider = ({children}) => {
                 if (res.ok) {
                     const data = await res.json();
                     setAccessToken(data.access_token)
+                    setLoggedIn(true)
                 }
             }
 
@@ -45,7 +49,9 @@ const AppProvider = ({children}) => {
         }, [])
 
         return (
-            <AppContext.Provider value={{ws,fileWriter,sessionStream,sessionRecorder,greetingBuffer,stream,recordedChunks, accessToken, setAccessToken, isCheckingAuth}}>
+            <AppContext.Provider value={{ws,fileWriter,sessionStream,sessionRecorder,greetingBuffer, isLoggedIn, setLoggedIn,
+                                        stream,recordedChunks, accessToken, setAccessToken, isCheckingAuth,
+                                        currentUser, setCurrentUser}}>
                 {children}
             </AppContext.Provider>
         )
@@ -64,8 +70,8 @@ const App = () => {
                 <Route path="/pricing" element={<Pricing/>}/>
                 <Route path="/account" element={<SignUp/>}/>
                 <Route path="/login" element={<Login/>}/>
-                <Route path="/PublicLandingPage" element = {
-                    <ProtectedRoute> <PublicLandingPage/>  </ProtectedRoute> } />
+                <Route path="/UserLandingPage" element = {
+                    <ProtectedRoute> <UserLandingPage/>  </ProtectedRoute> } />
                 <Route path="/form" element={<FormPage/>}/>
                 <Route path="/waitingpage" element={<InterviewWaitingPage/>}/>
                 <Route path="/interviewpage" element={<InterviewPage/>}/>
