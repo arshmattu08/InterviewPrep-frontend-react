@@ -1,0 +1,101 @@
+#hemisphere {
+    width:100%;
+    height:20%;
+    background-color: black;
+    border-radius: 0 0 50% 50%;
+    padding-bottom: 15px;
+    position: relative;
+    /* border: 3px solid cyan; */
+    overflow: hidden;
+
+}
+
+#logo {
+    width: 15%;
+    height: 50%;
+    left: 50%;
+    top: 40%;
+    /* border: 1px solid red; */
+    transform: translateX(-50%);
+    position: absolute;
+
+}
+
+.nav-btn {
+    background: none;
+    padding: 0;
+    border: none;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    font-family: Helvetica , 'Times New Roman', Times, serif;
+    font-weight: lighter;
+}
+
+#profile {
+    position:absolute;
+    left: 10%;
+    top: 62%;
+    /* border: 1px solid red; */
+    transform: rotate(3.5deg);
+}
+
+#profile:hover {
+    transform: rotate(3.5deg) scale(1.03);
+}
+
+#profile:active {
+    transform: rotate(3deg) scale(0.97);
+}
+
+
+
+
+#pricing {
+    position:absolute;
+    left: 20%;
+    top: 70%;
+    /* border: 1px solid red; */
+    transform: rotate(3deg);
+}
+
+#pricing:hover {
+    transform: rotate(3deg) scale(1.03);
+}
+
+#pricing:active {
+    transform: rotate(3deg) scale(0.97);
+}
+
+#account {
+    position:absolute;
+    left: 70%;
+    top: 72%;
+    /* border: 1px solid blue; */
+    transform: rotate(-2deg);
+}
+
+#account:hover {
+    transform: rotate(-2deg) scale(1.03);
+}
+
+#account:active {
+    transform: rotate(-2deg) scale(0.97);
+}
+
+#resources {
+    position:absolute;
+    left: 90%;
+    top: 55%;
+    /* border: 1px solid yellow; */
+    transform: rotate(-10deg);
+}
+
+#resources:hover {
+    transform: rotate(-10deg) scale(1.03);
+}
+
+#resources:active {
+    transform: rotate(-10deg) scale(0.97);
+}
+

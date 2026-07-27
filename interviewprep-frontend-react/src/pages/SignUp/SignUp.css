@@ -1,0 +1,56 @@
+#signup-wrapper{
+    width: 100%;
+    height: 75%;
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+}
+
+#signup-form{
+    margin-top: 25px;
+    width: 45%;
+    height: 90%;
+    /* border: 1px solid blue; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#signup-form form{
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    width:100%;
+    margin-top: 25px;
+    margin-bottom: 40px;
+    padding-left: 120px;
+}
+
+/* can be used to style labels*/
+#signup-form form div label{
+    display: block;
+    font-size: 18px;
+    font-family: Helvetica, sans-serif;
+}
+
+#signup-form form div input{
+    background-color: #ededed;
+    width: 75%;
+    height: 75%;
+    border-radius: 10px;
+    border: none;
+    font-size: 18px;
+    padding-left: 5px;
+}
+
+#signup-form button {
+    align-self: center;
+    font-weight: bold;
+    margin-right: 100px;
+}
+
+/* So basically in this css we have outer page level wrapper and then form wrapper centered with flex on outer.
+And then inside the form wrapper we have form centered with flex on form wrapper. 
+In order for proper form children layout, the form itself again is flex.
+And then we have access to labels, inputs, and submit button.
+*/
