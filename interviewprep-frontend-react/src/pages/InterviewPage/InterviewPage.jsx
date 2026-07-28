@@ -35,6 +35,7 @@ const InterviewPage = () => {
     let leftoverByte = useRef(null);
     let recorder = useRef(null);
     let audio_chunks = useRef([]);
+    const ignoreIncomingBytes = useRef(false)
 
 
     const playGreeting = async () => {
@@ -44,20 +45,16 @@ const InterviewPage = () => {
         bufferSource.current.buffer = decoded
         bufferSource.current.connect(audioContext.current.destination)
         bufferSource.current.start()
+        console.log("greeting started playing..")
+        
         bufferSource.current.onended = () => {
-        isWaitingResponse.current = false
-        isGreetingPlaying.current = false
+            console.log("greeting ended.")
+            isWaitingResponse.current = false
+            isGreetingPlaying.current = false
     }
         
     }
 
-
-    const waitForGreeting = async () => {
-    while (!greetingBuffer.current) {
-        await new Promise(r => setTimeout(r, 100))
-    }
-        playGreeting()
-    }
 
 
     const initInterview = async () => {
@@ -119,7 +116,7 @@ const InterviewPage = () => {
 
 
 
-  let nextStartTime = useRef(0);
+let nextStartTime = useRef(0);
 
  function playPCMChunk(arrayBuffer) {
     let bytes = new Uint8Array(arrayBuffer);
@@ -138,7 +135,7 @@ const InterviewPage = () => {
   const int16 = new Int16Array(bytes.buffer);
   const float32 = new Float32Array(int16.length);
   for (let i = 0; i < int16.length; i++) {
-    float32[i] = int16[i] / 32768;
+    float32[i] = int16[i] / 32768; // [-1,1) transformation
   }
 
   const audioBuffer = audioCtx.current.createBuffer(1, float32.length, 24000);
@@ -166,6 +163,7 @@ function stopAIPlayback() {
   activeSources.current.forEach(s => { try { s.stop(); } catch(e) {} });
   activeSources.current = [];
   nextStartTime.current = audioCtx.current.currentTime;
+  ignoreIncomingBytes.current = true;
   ws.current.send(JSON.stringify({"msg": "interrupt"}))
 }
 
@@ -173,17 +171,21 @@ function stopAIPlayback() {
 
     ws.current.onmessage = async (event) => {
         console.log("AI responding...")
-        isWaitingResponse.current = false
+        
 
         if (typeof event.data === "string") {
         const msg = JSON.parse(event.data)
         if (msg.msg === "tts_start") {
-            nextStartTime.current = audioCtx.current.currentTime
+            nextStartTime.current = audioCtx.current.currentTime //on tts start, we match nextTime to audioCtx time
+            ignoreIncomingBytes.current = false;
         }
                 return
     }
 
+    if (ignoreIncomingBytes.current) return;
+
        //play audio
+        isWaitingResponse.current = false
         const arrayBuffer = await event.data.arrayBuffer()
         playPCMChunk(arrayBuffer)
     }
@@ -191,7 +193,7 @@ function stopAIPlayback() {
 
     useEffect(() => {
         initInterview()
-        waitForGreeting()
+        playGreeting()
     },[])
 
     useEffect(() => {

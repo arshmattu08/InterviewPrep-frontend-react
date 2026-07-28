@@ -17,7 +17,7 @@ const InterviewWaitingPage = () => {
     const getPermissions = async (data) => {
 
         console.log("permissions are hit!")
-        stream.current = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation: true}}) // interview mic permission
+        stream.current = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation: true, echoCancellationType:'system'}}) // interview mic permission
 
         if (data.recordingOption == "No Recording"){return}
 
@@ -72,13 +72,28 @@ const InterviewWaitingPage = () => {
                 console.log("interviewData sent to backend.")
                 ws.current.onmessage = (event) => {
                     greetingBuffer.current= event.data;
-                    console.log("greeting audio saved for playback.")}
+                    console.log("greeting audio on the way to buffer")}
 
                 }
        await getPermissions(interviewData)
-       setTimeout(() => navigate("/interviewpage"), randomDelay);
+       setTimeout( async () => {
+                    while(!greetingBuffer.current) {
+                        await new Promise(r => setTimeout(r,100))
+                    }
+                    navigate("/interviewpage")}, 
+                    randomDelay);
        
     }
+
+// const waitForGreeting = async () => {
+    // while (!greetingBuffer.current) {
+    //     await new Promise(r => setTimeout(r, 100))
+    // }
+    //     playGreeting()
+    // }
+
+
+
     
 
     return  (
