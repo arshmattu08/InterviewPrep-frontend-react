@@ -80,6 +80,7 @@ const InterviewWaitingPage = () => {
                     while(!greetingBuffer.current) {
                         await new Promise(r => setTimeout(r,100))
                     }
+                    console.log(greetingBuffer)
                     navigate("/interviewpage")}, 
                     randomDelay);
        
