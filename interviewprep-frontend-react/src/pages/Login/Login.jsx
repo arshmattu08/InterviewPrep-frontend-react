@@ -45,6 +45,7 @@ const Login = () => {
              setMessage("Login Successful")
              setAccessToken(data.access_token)
              setLoggedIn(true)
+             navigate("/UserLandingPage")
 
         }
 
@@ -52,29 +53,6 @@ const Login = () => {
             setError(data.detail)
             return;
         }
-
-        const response = await fetch("http://localhost:8000/users/me",{
-            headers: {"Content-Type":"application/json",
-                    "Authorization": `Bearer ${data.access_token}`
-            },
-            credentials:"include",
-        })
-
-        const user = await response.json()
-
-        if(response.ok){
-            setCurrentUser(user)
-            navigate("/UserLandingPage")
-        }
-
-        else if(!response.ok) {
-            setError(user.detail)
-            return;
-        }
-        
-
-
-
 
     }
 

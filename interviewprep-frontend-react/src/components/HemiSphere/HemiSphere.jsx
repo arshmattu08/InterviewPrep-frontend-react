@@ -5,13 +5,14 @@ import { Link } from "react-router-dom";
 import { AppContext } from "../App";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import CreditDialogBox from "../CreditDialogBox/CreditDialogBox";
 
 
 const HemiSphere = () => {
 
     const navigate = useNavigate()
 
-    const {isLoggedIn, setLoggedIn, setAccessToken} = useContext(AppContext)
+    const {isLoggedIn, setLoggedIn, setAccessToken, currentUser, isCreditBoxOpen, setCreditBoxOpen} = useContext(AppContext)
 
     const logOut = async () => {
 
@@ -29,6 +30,13 @@ const HemiSphere = () => {
       navigate("/login")}
       
     }
+
+    const handleAddCredits = () => {
+      setCreditBoxOpen(true)
+    }
+
+
+
 
 
     return (
@@ -51,6 +59,10 @@ const HemiSphere = () => {
             <Link to={"/pricing"}> <button id= "profile" className="nav-btn">Profile</button> </Link>
             <Link to={"/"}> <img id = "logo" src={Logo}></img> </Link>
             <button id="account" className="nav-btn" onClick={logOut}>Log Out</button> 
+            <span id="credit-score">Credits: {currentUser.credit_balance} </span>
+             <div id="add-credits" onClick={handleAddCredits}>+ Add Credits </div>
+
+             {isCreditBoxOpen && <CreditDialogBox/>}
           </div>
           
           }

@@ -26,8 +26,30 @@ const AppProvider = ({children}) => {
         const [isCheckingAuth, setCheckingAuth] = useState(true)
         const [isLoggedIn, setLoggedIn] = useState(false)
         const [currentUser, setCurrentUser] = useState({})
+        const [isCreditBoxOpen, setCreditBoxOpen] = useState(false)
 
         useEffect(() => {
+            // every time user refreshes, context resets so we're getting user info and auth on refresh/mount.
+
+            const getUser = async (token) => {
+                const response = await fetch("http://localhost:8000/users/me",{
+                         headers: {"Content-Type":"application/json",
+                                  "Authorization": `Bearer ${token}` },
+                                 credentials:"include",
+            })
+
+            const user = await response.json()
+
+             if(response.ok){
+            setCurrentUser(user)
+            
+            }
+
+            else if(!response.ok) {
+            setError(user.detail)
+            return;
+            }} 
+
             const checkAuth = async () => {
                 try {
                     const res = await fetch ("http://localhost:8000/refresh", {method:"POST", credentials:"include"}) //include current refresh cookie
@@ -36,6 +58,7 @@ const AppProvider = ({children}) => {
                     const data = await res.json();
                     setAccessToken(data.access_token)
                     setLoggedIn(true)
+                    await getUser(data.access_token)
                 }
             }
 
@@ -43,15 +66,17 @@ const AppProvider = ({children}) => {
 
             finally{setCheckingAuth(false)}
 
-            }
+        }
+
             checkAuth();
+
 
         }, [])
 
         return (
             <AppContext.Provider value={{ws,fileWriter,sessionStream,sessionRecorder,greetingBuffer, isLoggedIn, setLoggedIn,
                                         stream,recordedChunks, accessToken, setAccessToken, isCheckingAuth,
-                                        currentUser, setCurrentUser}}>
+                                        currentUser, setCurrentUser, isCreditBoxOpen, setCreditBoxOpen}}>
                 {children}
             </AppContext.Provider>
         )

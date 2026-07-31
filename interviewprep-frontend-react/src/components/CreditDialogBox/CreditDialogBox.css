@@ -1,0 +1,94 @@
+#add-credits-wrapper {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid red;
+    backdrop-filter: blur(8px);
+}
+
+
+#credit-dialog-box{
+    background-color: white;
+    width: 40%;
+    height: 40%;
+    border: 1px solid black;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding: 10px 0px;
+}
+
+#box-logo{
+    width: 40%;
+    height: 40%;
+    border: 1px solid green;
+}
+
+.plans{
+    border-radius: 20px;
+    background-color: rgb(235, 234, 234);
+    width: 90%;
+    height: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+.plans.selected{
+    border: 2px solid royalblue;
+  
+}
+
+.plans p{
+    margin-right: 40%;
+    /* border: 1px solid green; */
+  
+}
+
+
+#quantity{
+    align-self: start;
+    padding-left: 30px;
+    display: flex;
+    gap: 16px;
+}
+
+.quantity-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: black;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.quantity-btn:hover {
+    transform: scale(1.05);
+}
+
+.quantity-btn:active {
+    transform: scale(1.00);
+}
+
+.quantity-btn svg {
+  color: white;
+}
+
+.quantity-val{
+  font-weight: bold;
+  min-width: 16px;
+  text-align: center;
+  font-size: 22px;
+}
+
+#pay-btn{
+   border-radius: 20px;
+}
