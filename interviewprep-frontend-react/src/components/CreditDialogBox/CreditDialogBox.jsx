@@ -10,7 +10,7 @@ import Button from "../Button/Button";
 
 const CreditDialogBox = () => {
 
-    const {setCreditBoxOpen} = useContext(AppContext)
+    const {setCreditBoxOpen, accessToken} = useContext(AppContext)
     const [quantity, setQuantity] = useState(1)
     const [selectedPlan, setSelectedPlan] = useState("")
 
@@ -27,8 +27,26 @@ const CreditDialogBox = () => {
         if (quantity > 1)  setQuantity(quantity -1 )
     }
 
-   
+   const handlePayment = async() => {
+    const response = await fetch("http://localhost:8000/payment", {
+        method:"POST",
+        headers: {"Content-Type":"application/json",
+                "Authorization": `Bearer ${accessToken}`
+        },
+        credentials :'include',
+        body: JSON.stringify({"plan": selectedPlan, "quantity": quantity})
+    })
 
+   if (response.ok){
+    const url = await response.json()
+    window.location.href = url.checkout_url
+   }
+
+   else {
+    console.log("Payment Failed!")
+   }
+   }
+   
 
 
     return (
@@ -59,7 +77,7 @@ const CreditDialogBox = () => {
                      <button onClick={increment}  className="quantity-btn">  <Plus size={16}/> </button>
                </div>
 
-               <Button id="pay-btn" label={"Pay Now"}/>
+               <Button id="pay-btn" label={"Pay Now"} onClick={handlePayment}/>
 
             </div>
 
