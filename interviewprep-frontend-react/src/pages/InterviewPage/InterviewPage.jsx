@@ -7,6 +7,7 @@ import {useMicVAD} from "@ricky0123/vad-react";
 import { AppContext } from "../../components/App";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import PopUp from "../../components/PopUp/PopUp";
 
 
 const InterviewPage = () => {
@@ -16,6 +17,7 @@ const InterviewPage = () => {
     const navigate = useNavigate()
 
     const [time, setTime] = useState(0);
+    const [showPopUp, setshowPopUp] = useState(false);
 
 
     const audioContext = useRef(new AudioContext());
@@ -36,6 +38,7 @@ const InterviewPage = () => {
     let recorder = useRef(null);
     let audio_chunks = useRef([]);
     const ignoreIncomingBytes = useRef(false)
+    const hasWarned = useRef(false)
 
 
     const playGreeting = async () => {
@@ -215,17 +218,37 @@ function stopAIPlayback() {
             sessionRecorder.current.stop()
         }
          ws.current.send(JSON.stringify({"msg":"end"}))
-        alert("Your interview has been ended successfully.")
+        alert("Thank you for interviewing with us! Review your session in next page")
        navigate("/interviewdonepage")
 
         }
 
+    // end interview (hit handleEnd) if time exceeds threshold
+    useEffect(()=>{
+
+        if (time > 60) handleEnd()
+
+        else if (time > 5 && !hasWarned.current) {
+            setshowPopUp(true)
+             hasWarned.current = true
+            }
+
+
+    },[time])
+
+
+
 
     return (
-        <div>
+        <div id="interview-page-wrapper">
+
                 <InterviewBar handleEnd= {handleEnd}
                             formattedTimer = {formattedTimer}/>
                 <Grid />
+
+                <PopUp showPopUp={showPopUp} setshowPopUp={setshowPopUp} message={"You have about 2 minutes left!"} id={"end-sign"}/>
+
+                
 
         </div>
     )

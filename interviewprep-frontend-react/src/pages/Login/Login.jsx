@@ -14,7 +14,7 @@ const Login = () => {
     const [error, setError] = useState('')
 
     const navigate = useNavigate()
-    const {access_token ,setAccessToken, setLoggedIn, setCurrentUser} = useContext(AppContext)
+    const {access_token ,setAccessToken, setLoggedIn, setCurrentUser, getUser} = useContext(AppContext)
 
 
 
@@ -45,6 +45,7 @@ const Login = () => {
              setMessage("Login Successful")
              setAccessToken(data.access_token)
              setLoggedIn(true)
+             getUser(data.access_token)
              navigate("/UserLandingPage")
 
         }
