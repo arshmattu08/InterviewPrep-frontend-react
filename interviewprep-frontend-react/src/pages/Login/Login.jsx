@@ -31,7 +31,7 @@ const Login = () => {
         setMessage('')
         setError('')
 
-        const res = await fetch("http://localhost:8000/login/", {
+        const res = await fetch("https://impolite-buckle-harddisk.ngrok-free.dev/login/", {
             method:"POST",
             headers: {"Content-Type":"application/json"},
             credentials:"include",

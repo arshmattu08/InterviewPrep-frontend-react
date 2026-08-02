@@ -28,7 +28,7 @@ const CreditDialogBox = () => {
     }
 
    const handlePayment = async() => {
-    const response = await fetch("http://localhost:8000/payment", {
+    const response = await fetch("https://impolite-buckle-harddisk.ngrok-free.dev/payment", {
         method:"POST",
         headers: {"Content-Type":"application/json",
                 "Authorization": `Bearer ${accessToken}`
