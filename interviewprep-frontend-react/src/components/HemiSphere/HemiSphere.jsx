@@ -17,7 +17,7 @@ const HemiSphere = () => {
     const logOut = async () => {
 
       try{
-      await fetch("http://localhost:8000/logout", {
+      await fetch("https://impolite-buckle-harddisk.ngrok-free.dev/logout", {
         method:"POST",
         credentials: "include"
       }); }

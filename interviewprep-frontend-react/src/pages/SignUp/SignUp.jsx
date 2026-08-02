@@ -26,7 +26,7 @@ const handleSubmit =  async(e) => {
         setMsg('')
     }
 
-    const res = await fetch("http://localhost:8000/users/",{
+    const res = await fetch("https://impolite-buckle-harddisk.ngrok-free.dev/users/",{
         method: "POST",
         headers: {"Content-Type":"application/json"},
         body: JSON.stringify({
