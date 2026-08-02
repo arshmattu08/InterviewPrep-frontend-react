@@ -28,10 +28,8 @@ const AppProvider = ({children}) => {
         const [currentUser, setCurrentUser] = useState({})
         const [isCreditBoxOpen, setCreditBoxOpen] = useState(false)
 
-        useEffect(() => {
-            // every time user refreshes, context resets so we're getting user info and auth on refresh/mount.
 
-            const getUser = async (token) => {
+        const getUser = async (token) => {
                 const response = await fetch("http://localhost:8000/users/me",{
                          headers: {"Content-Type":"application/json",
                                   "Authorization": `Bearer ${token}` },
@@ -50,6 +48,8 @@ const AppProvider = ({children}) => {
             return;
             }} 
 
+        useEffect(() => {
+            // every time user refreshes, context resets so we're getting user info and auth on refresh/mount.
             const checkAuth = async () => {
                 try {
                     const res = await fetch ("http://localhost:8000/refresh", {method:"POST", credentials:"include"}) //include current refresh cookie
@@ -76,7 +76,7 @@ const AppProvider = ({children}) => {
         return (
             <AppContext.Provider value={{ws,fileWriter,sessionStream,sessionRecorder,greetingBuffer, isLoggedIn, setLoggedIn,
                                         stream,recordedChunks, accessToken, setAccessToken, isCheckingAuth,
-                                        currentUser, setCurrentUser, isCreditBoxOpen, setCreditBoxOpen}}>
+                                        currentUser, setCurrentUser, isCreditBoxOpen, setCreditBoxOpen, getUser}}>
                 {children}
             </AppContext.Provider>
         )

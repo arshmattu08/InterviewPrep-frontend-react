@@ -1,0 +1,19 @@
+#pop-up-wrapper{
+    width: 20%;
+    height: 25px;
+    border: 1px solid black;
+    border-radius: 25px;
+    position: absolute;
+    bottom: 80%;
+    left: 75%;
+    margin-left: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.pop-up{
+    font-size: 14px;
+}
