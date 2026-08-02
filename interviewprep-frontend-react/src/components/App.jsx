@@ -98,10 +98,18 @@ const App = () => {
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/UserLandingPage" element = {
                     <ProtectedRoute> <UserLandingPage/>  </ProtectedRoute> } />
-                <Route path="/form" element={<FormPage/>}/>
-                <Route path="/waitingpage" element={<InterviewWaitingPage/>}/>
-                <Route path="/interviewpage" element={<InterviewPage/>}/>
-                <Route path="/interviewdonepage" element={<InterviewDonePage/>}/>
+
+                <Route path="/form" element={
+                    <ProtectedRoute> <FormPage/> </ProtectedRoute> }/>
+
+                <Route path="/waitingpage" element=
+                { <ProtectedRoute><InterviewWaitingPage/> </ProtectedRoute>}/>
+
+                <Route path="/interviewpage" element={
+                   <ProtectedRoute>  <InterviewPage/> </ProtectedRoute>}/>
+
+                <Route path="/interviewdonepage" element={
+                     <ProtectedRoute>  <InterviewDonePage/> </ProtectedRoute>}/>
 
 
              </Routes>
