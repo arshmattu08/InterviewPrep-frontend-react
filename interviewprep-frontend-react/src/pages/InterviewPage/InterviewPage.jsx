@@ -18,6 +18,7 @@ const InterviewPage = () => {
 
     const [time, setTime] = useState(0);
     const [showPopUp, setshowPopUp] = useState(false);
+    const [whoTalking, setWhoTalking] = useState("")
 
 
     const audioContext = useRef(new AudioContext());
@@ -48,10 +49,12 @@ const InterviewPage = () => {
         bufferSource.current.buffer = decoded
         bufferSource.current.connect(audioContext.current.destination)
         bufferSource.current.start()
+        setWhoTalking("ai")
         console.log("greeting started playing..")
         
         bufferSource.current.onended = () => {
             console.log("greeting ended.")
+            setWhoTalking("")
             isWaitingResponse.current = false
             isGreetingPlaying.current = false
     }
@@ -87,6 +90,7 @@ const InterviewPage = () => {
         positiveSpeechThreshold: 0.9,
         onSpeechStart: () => {
                 console.log("speech started")
+                setWhoTalking("user")
                 if (isWaitingResponse.current) {return}
                 if (graceTimer.current) clearTimeout(graceTimer.current);
                 if (!isRecording.current) {
@@ -98,6 +102,7 @@ const InterviewPage = () => {
         },
         onSpeechEnd: () => {
             console.log("speech ended")
+            setWhoTalking("")
             graceTimer.current = setTimeout(() => {
                 recorder.current.stop();
                 isRecording.current = false;}, 500)
@@ -151,6 +156,7 @@ let nextStartTime = useRef(0);
   activeSources.current.push(source);
   source.onended = () => {
     activeSources.current = activeSources.current.filter(s => s !== source)
+    if (activeSources.length === 0) setWhoTalking("")
   }
 
   const startAt = Math.max(audioCtx.current.currentTime, nextStartTime.current);
@@ -179,6 +185,7 @@ function stopAIPlayback() {
         if (typeof event.data === "string") {
         const msg = JSON.parse(event.data)
         if (msg.msg === "tts_start") {
+            setWhoTalking("ai")
             nextStartTime.current = audioCtx.current.currentTime //on tts start, we match nextTime to audioCtx time
             ignoreIncomingBytes.current = false;
         }
@@ -219,16 +226,16 @@ function stopAIPlayback() {
         }
          ws.current.send(JSON.stringify({"msg":"end"}))
         alert("Thank you for interviewing with us! Review your session in next page")
-       navigate("/interviewdonepage")
+        navigate("/interviewdonepage")
 
         }
 
     // end interview (hit handleEnd) if time exceeds threshold
     useEffect(()=>{
 
-        if (time > 60) handleEnd()
+        if (time > 1320) handleEnd()
 
-        else if (time > 5 && !hasWarned.current) {
+        else if (time > 1200 && !hasWarned.current) {
             setshowPopUp(true)
              hasWarned.current = true
             }
@@ -244,7 +251,8 @@ function stopAIPlayback() {
 
                 <InterviewBar handleEnd= {handleEnd}
                             formattedTimer = {formattedTimer}/>
-                <Grid />
+
+                <Grid whoTalking={whoTalking}/>
 
                 <PopUp showPopUp={showPopUp} setshowPopUp={setshowPopUp} message={"You have about 2 minutes left!"} id={"end-sign"}/>
 

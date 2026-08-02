@@ -20,6 +20,12 @@
 
 }
 
+.avatar.speaking {
+    border: 5px solid #6137cc;
+}
+
+
+
 .avatar-img {
     width: 100%;
     height: 100%;
@@ -43,4 +49,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.interviewee.speaking {
+    border: 5px solid #6137cc;
 }
