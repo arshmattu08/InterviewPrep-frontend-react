@@ -5,9 +5,10 @@ import InterviewPage from "../pages/InterviewPage/InterviewPage"
 import InterviewDonePage from "./InterviewDone/InterviewDone"
 import LandingPage from "../pages/LandingPage/LandingPage"
 import UserLandingPage from "../pages/UserLandingPage/UserLandingPage"
-import Pricing from "../pages/Pricing/Pricing"
+import Pricing from "../pages/Pricing/Pricing";
 import SignUp from "../pages/SignUp/SignUp";
 import Login from "../pages/Login/Login";
+import Profile from "../pages/Profile/Profile";
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 
@@ -96,6 +97,7 @@ const App = () => {
                 <Route path="/pricing" element={<Pricing/>}/>
                 <Route path="/account" element={<SignUp/>}/>
                 <Route path="/login" element={<Login/>}/>
+                 <Route path="/profile" element={<Profile/>}/>
                 <Route path="/UserLandingPage" element = {
                     <ProtectedRoute> <UserLandingPage/>  </ProtectedRoute> } />
 
