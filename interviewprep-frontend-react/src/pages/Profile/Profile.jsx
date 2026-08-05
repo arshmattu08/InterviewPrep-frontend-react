@@ -10,7 +10,7 @@ import Button from "../../components/Button/Button";
 
 const Profile = () => {
 
-    const {currentUser,setCurrentUser,setCreditBoxOpen} = useContext(AppContext)
+    const {currentUser,setCurrentUser,setCreditBoxOpen, accessToken} = useContext(AppContext)
 
     const [isEditingFirstName, setEditingFirstName] = useState(false)
     const [isEditingLastName, setEditingLastName] = useState(false)
@@ -21,14 +21,22 @@ const Profile = () => {
 
 
     const handleSave = async (field, value, toggle) => {
-        await fetch(" https://impolite-buckle-harddisk.ngrok-free.dev/{our_endpoint}", {
+        try {
+        const response = await fetch("https://impolite-buckle-harddisk.ngrok-free.dev/users/me", {
             method:"PATCH",
+            headers: {"Content-Type":"application/json",
+                    "Authorization": `Bearer ${accessToken}`},
             body: JSON.stringify({[field]: value}) }
         )
-        setCurrentUser(prev => ({...prev, [field] : value}))
-        toggle(false)
+        if (response.ok) {
+                setCurrentUser(prev => ({...prev, [field] : value}))
+                toggle(false)
+                }
+        }
+            
+        catch (err) {console.log(err)}
+    
     }
-
 
 
 
@@ -47,7 +55,7 @@ const Profile = () => {
                     {isEditingFirstName ? 
                     <input value={firstNameInput} onChange={(e)=> setFirstNameInput(e.target.value)}></input> :
                     <span><h3>{currentUser?.first_name}</h3></span>}
-                    {isEditingFirstName && <Button label={"Save"} onClick={() => handleSave(currentUser.first_name, firstNameInput, setEditingFirstName)}/>}
+                    {isEditingFirstName && <Button label={"Save"} onClick={() => handleSave("first_name", firstNameInput, setEditingFirstName)}/>}
                     <img src={Edit} onClick={() => setEditingFirstName(!isEditingFirstName)}></img>
                 </div>
 
@@ -56,7 +64,7 @@ const Profile = () => {
                     {isEditingLastName ? 
                     <input value={lastNameInput} onChange={(e)=> setLastNameInput(e.target.value)}></input> :
                     <span><h3>{currentUser?.last_name}</h3></span>}
-                    {isEditingLastName && <Button label={"Save"} onClick={() => handleSave(currentUser.last_name, lastNameInput, setEditingLastName)}/>}
+                    {isEditingLastName && <Button label={"Save"} onClick={() => handleSave("last_name", lastNameInput, setEditingLastName)}/>}
                     <img src={Edit} onClick={() => setEditingLastName(!isEditingLastName)}></img>
                 </div>
 
@@ -65,7 +73,7 @@ const Profile = () => {
                      {isEditingEmail ? 
                     <input value={emailInput} onChange={(e)=> setEmailInput(e.target.value)}></input> :
                     <span><h3>{currentUser?.email}</h3></span>}
-                    {isEditingEmail && <Button label={"Save"} onClick={() => handleSave(currentUser.email, emailInput, setEditingEmail)}/>}
+                    {isEditingEmail && <Button label={"Save"} onClick={() => handleSave("email", emailInput, setEditingEmail)}/>}
                     <img src={Edit} onClick={()=> setEditingEmail(!isEditingEmail)}></img>
                 </div>
 
