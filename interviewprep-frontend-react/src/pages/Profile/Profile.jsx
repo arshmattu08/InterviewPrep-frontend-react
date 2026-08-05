@@ -7,6 +7,7 @@ import { useContext } from "react";
 import Edit from "../../assets/edit.svg"
 import Add from "../../assets/add.svg";
 import Button from "../../components/Button/Button";
+import ChangePass from "../../components/ChangePass/ChangePass";
 
 const Profile = () => {
 
@@ -18,6 +19,8 @@ const Profile = () => {
     const[firstNameInput, setFirstNameInput] = useState("")
     const[lastNameInput, setLastNameInput] = useState("")
     const[emailInput, setEmailInput] = useState("")
+
+    const [isCurrentPassOpen, setIsCurrentPassOpen] = useState(false)
 
 
     const handleSave = async (field, value, toggle) => {
@@ -78,7 +81,8 @@ const Profile = () => {
                 </div>
 
                 <div id="change-pass">
-                    <button>Change Password</button>
+                    <Button label={"Change Password"} onClick={() => setIsCurrentPassOpen(true)}/>
+                    {isCurrentPassOpen && <ChangePass toggle={setIsCurrentPassOpen}/>}
                 </div>
 
                 <div id="credit-balance">

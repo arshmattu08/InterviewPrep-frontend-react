@@ -1,0 +1,34 @@
+#change-pass-wrapper{
+    position: fixed;
+    inset: 0;
+    border: 2px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(7px);
+}
+
+
+#change-pass-dialog{
+    border: 1px solid blue;
+    width: 40%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    background-color: white;
+    border-radius: 25px;
+}
+
+#change-pass-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#save-pass-btn{
+    font-weight: bold;
+}
