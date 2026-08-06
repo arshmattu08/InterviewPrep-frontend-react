@@ -8,10 +8,13 @@ import Edit from "../../assets/edit.svg"
 import Add from "../../assets/add.svg";
 import Button from "../../components/Button/Button";
 import ChangePass from "../../components/ChangePass/ChangePass";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
 
-    const {currentUser,setCurrentUser,setCreditBoxOpen, accessToken} = useContext(AppContext)
+    const navigate = useNavigate()
+
+    const {currentUser,setCurrentUser,setCreditBoxOpen, accessToken, setAccessToken, setLoggedIn} = useContext(AppContext)
 
     const [isEditingFirstName, setEditingFirstName] = useState(false)
     const [isEditingLastName, setEditingLastName] = useState(false)
@@ -21,6 +24,8 @@ const Profile = () => {
     const[emailInput, setEmailInput] = useState("")
 
     const [isCurrentPassOpen, setIsCurrentPassOpen] = useState(false)
+
+    const [deleteClicked, setDeleteClicked] = useState(false)
 
 
     const handleSave = async (field, value, toggle) => {
@@ -39,6 +44,29 @@ const Profile = () => {
             
         catch (err) {console.log(err)}
     
+    }
+
+    const handleDelete = async() => {
+
+        try{
+        const res = await fetch("https://impolite-buckle-harddisk.ngrok-free.dev/users/delete", {
+            method:"DELETE",
+            headers: {"Content-Type":"application/json",
+                    "Authorization": `Bearer ${accessToken}`},
+        })
+        if (res.ok) {
+            setDeleteClicked(false)
+            setCurrentUser({})
+            setLoggedIn(false)
+            setAccessToken(null)
+            alert("Your account has been deleted")
+            navigate("/account")}
+        else {
+            const data = await res.json();
+            alert(data.detail)}
+        }
+        
+        catch (err) {console.log(err)}
     }
 
 
@@ -93,8 +121,15 @@ const Profile = () => {
                 </div>
                 <div id="delete-account">
                     <p>Want to delete account?</p>
-                    <button>DELETE</button>
+                    <Button label={"Delete"} onClick={() => setDeleteClicked(true)} id="delete-btn"/>
                 </div>
+
+                {deleteClicked && 
+                        <div id="confirmation">
+                            <h3>Are You Sure?</h3>
+                            <Button label={"Yes, Delete."} onClick={handleDelete} id="yes-btn"/> 
+                            <Button label={"No"} onClick={() => setDeleteClicked(false)} id="no-btn"/>
+                        </div>}
                 
         
             </div>

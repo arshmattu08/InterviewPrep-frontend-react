@@ -85,11 +85,11 @@ const handleSubmit =  async(e) => {
 
                      <Button type="submit" label={"Sign Up"}/>
 
-                     {msg && <p style={{alignSelf:'center', marginRight:'80px'}}>{msg}</p>}
-
                 </form>
 
-                <p>Already have an account? <Link to={"/login"}> <b style={{color:'#0687FF', cursor:'pointer'}}>Login</b> </Link> </p>
+                {msg && <p style={{alignSelf:'center', marginRight:'10px'}}>{msg}</p>}
+
+                <p style={{marginTop:"20px"}}>Already have an account? <Link to={"/login"}> <b style={{color:'#0687FF', cursor:'pointer'}}>Login</b> </Link> </p>
                 
             </div>
 

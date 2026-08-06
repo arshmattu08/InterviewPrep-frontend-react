@@ -86,12 +86,27 @@
     gap: 10px;
 }
 
-#delete-account button{
-    padding: 5px 15px;
+#delete-btn{
+    padding: 5px 7px;
     background-color: #C72828;
     border-radius: 25px;
     color: white;
     cursor: pointer;
+}
+
+#confirmation {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+#yes-btn{
+    background-color: lightgrey;
+    padding: 5px 15px;
+}
+
+#no-btn{
+    padding: 5px 15px;
 }
 
 
