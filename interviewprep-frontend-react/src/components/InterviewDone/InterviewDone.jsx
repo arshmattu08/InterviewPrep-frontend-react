@@ -6,16 +6,15 @@ import { useContext } from "react";
 const InterviewDonePage = () => {
 
 
-    const [feedbackReport, setFeedbackReport] = useState("")
-    const {ws, recordedChunks} = useContext(AppContext)
+    const {ws, recordedChunks, feedbackReport} = useContext(AppContext)
 
 
 
-    useEffect(() => {
-        ws.current.onmessage = (event) => {
-            setFeedbackReport(event.data)
-        }
-    },[])
+    // useEffect(() => {
+    //     ws.current.onmessage = (event) => {
+    //         setFeedbackReport(event.data)
+    //     }
+    // },[])
 
 
     const handleDownload = () => {
@@ -35,7 +34,7 @@ const InterviewDonePage = () => {
     return <div>
         
         <label> <h5>Feedback Report:</h5> </label>
-        <p>{feedbackReport}</p>
+        <p>{feedbackReport.current}</p>
 
        
         <label> <h5>Recording:</h5> </label>
