@@ -13,7 +13,7 @@ import PopUp from "../../components/PopUp/PopUp";
 const InterviewPage = () => {
 
 
-    const {greetingBuffer,stream, ws, sessionRecorder, fileWriter} = useContext(AppContext)
+    const {greetingBuffer,stream, ws, sessionRecorder, fileWriter, feedbackReport} = useContext(AppContext)
     const navigate = useNavigate()
 
     const [time, setTime] = useState(0);
@@ -177,13 +177,16 @@ function stopAIPlayback() {
 }
 
 
-
+    useEffect(() => {
     ws.current.onmessage = async (event) => {
         console.log("AI responding...")
         
 
         if (typeof event.data === "string") {
-        const msg = JSON.parse(event.data)
+        let msg;
+        try { msg = JSON.parse(event.data) } catch {
+            feedbackReport.current = event.data
+            return}
         if (msg.msg === "tts_start") {
             setWhoTalking("ai")
             nextStartTime.current = audioCtx.current.currentTime //on tts start, we match nextTime to audioCtx time
@@ -198,7 +201,8 @@ function stopAIPlayback() {
         isWaitingResponse.current = false
         const arrayBuffer = await event.data.arrayBuffer()
         playPCMChunk(arrayBuffer)
-    }
+    }  
+    }, [])
 
 
     useEffect(() => {
@@ -219,13 +223,20 @@ function stopAIPlayback() {
 
 
 
-    const handleEnd = () => {
+    const handleEnd = async () => {
         if (sessionRecorder.current) {
             sessionRecorder.current.onstop = () => fileWriter.current.close()
             sessionRecorder.current.stop()
         }
          ws.current.send(JSON.stringify({"msg":"end"}))
-        alert("Thank you for interviewing with us! Review your session in next page")
+
+        alert("Thank you for interviewing with us! Briefly we'll navigate you to next page.")
+
+        //wait for greeting
+        while (!feedbackReport.current) {
+            await new Promise(r => setTimeout(r,100))
+        }
+        ws.current.close()
         navigate("/interviewdonepage")
 
         }
@@ -236,7 +247,7 @@ function stopAIPlayback() {
         if (time > 1320) handleEnd()
 
         else if (time > 1200 && !hasWarned.current) {
-            setshowPopUp(true)
+             setshowPopUp(true)
              hasWarned.current = true
             }
 

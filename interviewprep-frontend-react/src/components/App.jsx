@@ -22,6 +22,7 @@ const AppProvider = ({children}) => {
         const greetingBuffer = useRef(null)
         const stream = useRef(null);
         const recordedChunks = useRef([])
+         const feedbackReport = useRef(null)
 
         const [accessToken, setAccessToken] = useState(null)
         const [isCheckingAuth, setCheckingAuth] = useState(true)
@@ -78,7 +79,7 @@ const AppProvider = ({children}) => {
         return (
             <AppContext.Provider value={{ws,fileWriter,sessionStream,sessionRecorder,greetingBuffer, isLoggedIn, setLoggedIn,
                                         stream,recordedChunks, accessToken, setAccessToken, isCheckingAuth,
-                                        currentUser, setCurrentUser, isCreditBoxOpen, setCreditBoxOpen, getUser}}>
+                                        currentUser, setCurrentUser, isCreditBoxOpen, setCreditBoxOpen, getUser, feedbackReport}}>
                 {children}
             </AppContext.Provider>
         )
