@@ -32,7 +32,7 @@ const AppProvider = ({children}) => {
 
 
         const getUser = async (token) => {
-                const response = await fetch("https://impolite-buckle-harddisk.ngrok-free.dev/users/me",{
+                const response = await fetch(`${import.meta.env.VITE_BE_URL}/users/me`,{
                          headers: {"Content-Type":"application/json",
                                   "Authorization": `Bearer ${token}`,
                                   "ngrok-skip-browser-warning": "true"},
@@ -55,7 +55,7 @@ const AppProvider = ({children}) => {
             // every time user refreshes, context resets so we're getting user info and auth on refresh/mount.
             const checkAuth = async () => {
                 try {
-                    const res = await fetch ("https://impolite-buckle-harddisk.ngrok-free.dev/refresh", {method:"POST", credentials:"include"}) //include current refresh cookie
+                    const res = await fetch (`${import.meta.env.VITE_BE_URL}/refresh`, {method:"POST", credentials:"include"}) //include current refresh cookie
                 
                 if (res.ok) {
                     const data = await res.json();

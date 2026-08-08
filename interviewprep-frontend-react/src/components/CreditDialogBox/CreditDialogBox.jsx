@@ -28,7 +28,7 @@ const CreditDialogBox = () => {
     }
 
    const handlePayment = async() => {
-    const response = await fetch("https://impolite-buckle-harddisk.ngrok-free.dev/payment", {
+    const response = await fetch(`${import.meta.env.VITE_BE_URL}/payment`, {
         method:"POST",
         headers: {"Content-Type":"application/json",
                 "Authorization": `Bearer ${accessToken}`
