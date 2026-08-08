@@ -28,7 +28,7 @@ const ChangePass = ({toggle}) => {
 
         try {
 
-        const res = await fetch("https://impolite-buckle-harddisk.ngrok-free.dev/users/update_pass" ,{
+        const res = await fetch(`${import.meta.env.VITE_BE_URL}/users/update_pass` ,{
             method:"PUT",
             headers: {"Content-Type":"application/json",
                     "Authorization" : `Bearer ${accessToken}`

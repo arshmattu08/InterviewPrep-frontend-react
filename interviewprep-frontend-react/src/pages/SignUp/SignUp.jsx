@@ -26,7 +26,7 @@ const handleSubmit =  async(e) => {
         setMsg('')
     }
 
-    const res = await fetch("https://impolite-buckle-harddisk.ngrok-free.dev/users/",{
+    const res = await fetch(`${import.meta.env.VITE_BE_URL}/users/`,{
         method: "POST",
         headers: {"Content-Type":"application/json"},
         body: JSON.stringify({

@@ -30,7 +30,7 @@ const Profile = () => {
 
     const handleSave = async (field, value, toggle) => {
         try {
-        const response = await fetch("https://impolite-buckle-harddisk.ngrok-free.dev/users/me", {
+        const response = await fetch(`${import.meta.env.VITE_BE_URL}/users/me`, {
             method:"PATCH",
             headers: {"Content-Type":"application/json",
                     "Authorization": `Bearer ${accessToken}`},
@@ -49,7 +49,7 @@ const Profile = () => {
     const handleDelete = async() => {
 
         try{
-        const res = await fetch("https://impolite-buckle-harddisk.ngrok-free.dev/users/delete", {
+        const res = await fetch(`${import.meta.env.VITE_BE_URL}/users/delete`, {
             method:"DELETE",
             headers: {"Content-Type":"application/json",
                     "Authorization": `Bearer ${accessToken}`},

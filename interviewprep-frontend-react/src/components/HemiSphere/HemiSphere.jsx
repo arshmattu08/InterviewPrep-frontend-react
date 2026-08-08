@@ -17,7 +17,7 @@ const HemiSphere = () => {
     const logOut = async () => {
 
       try{
-      await fetch("https://impolite-buckle-harddisk.ngrok-free.dev/logout", {
+      await fetch(`${import.meta.env.VITE_BE_URL}/logout`, {
         method:"POST",
         credentials: "include"
       }); }
