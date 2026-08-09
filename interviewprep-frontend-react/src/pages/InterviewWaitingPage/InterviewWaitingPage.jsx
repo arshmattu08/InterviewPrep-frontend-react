@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 const InterviewWaitingPage = () => {
 
+    const wsUrl = import.meta.env.VITE_BE_URL.replace(/^http/, 'ws');
+
     const {stream, ws, sessionStream, sessionRecorder,fileWriter, recordedChunks, greetingBuffer, accessToken} = useContext(AppContext)
     const navigate = useNavigate()
 
@@ -66,7 +68,7 @@ const InterviewWaitingPage = () => {
 
        const delays = [2000, 3000, 4000, 5000];
        const randomDelay = delays[Math.floor(Math.random() * delays.length)];
-       ws.current = new WebSocket(`wss://impolite-buckle-harddisk.ngrok-free.dev/interview?token=${accessToken}`)
+       ws.current = new WebSocket(`${wsUrl}/interview?token=${accessToken}`)
        ws.current.onopen = () => {
                 ws.current.send(JSON.stringify(interviewData))
                 console.log("interviewData sent to backend.")
