@@ -1,8 +1,22 @@
 #user_landing_wrapper{
-    border: 3px solid red;
+    /* border: 3px solid red; */
     width: 100%;
     height: 75%;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+#fun-facts-wrapper{
+    /* border: 1px solid royalblue; */
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#fun-facts{
+    font-size: 30px;
 }

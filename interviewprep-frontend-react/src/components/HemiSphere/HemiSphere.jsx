@@ -58,7 +58,8 @@ const HemiSphere = () => {
             <Link to={"/pricing"}> <button id= "pricing" className="nav-btn">Pricing</button> </Link>
             <Link to={"/profile"}> <button id= "profile" className="nav-btn">Profile</button> </Link>
             <Link to={"/"}> <img id = "logo" src={Logo}></img> </Link>
-            <button id="account" className="nav-btn" onClick={logOut}>Log Out</button> 
+            <Link to={"/UserLandingPage"}> <button id= "home" className="nav-btn">Home</button> </Link>
+            <button id="log-out" className="nav-btn" onClick={logOut}>Log Out</button> 
             <span id="credit-score">Credits: {currentUser.credit_balance} </span>
              <div id="add-credits" onClick={handleAddCredits}>+ Add Credits </div>
 

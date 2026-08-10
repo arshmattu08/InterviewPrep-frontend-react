@@ -39,8 +39,8 @@
 
 #profile {
     position:absolute;
-    left: 10%;
-    top: 62%;
+    left: 15%;
+    top: 67%;
     /* border: 1px solid red; */
     transform: rotate(3.5deg);
 }
@@ -58,18 +58,18 @@
 
 #pricing {
     position:absolute;
-    left: 20%;
-    top: 70%;
+    left: 30%;
+    top: 75%;
     /* border: 1px solid red; */
-    transform: rotate(3deg);
+    transform: rotate(2deg);
 }
 
 #pricing:hover {
-    transform: rotate(3deg) scale(1.03);
+    transform: rotate(2deg) scale(1.03);
 }
 
 #pricing:active {
-    transform: rotate(3deg) scale(0.97);
+    transform: rotate(2deg) scale(0.97);
 }
 
 #account {
@@ -131,4 +131,36 @@
 
 #add-credits:hover {
     transform: scale(1.03);
+}
+
+#log-out{
+    position:absolute;
+    left: 80%;
+    top: 70%;
+    /* border: 1px solid blue; */
+    transform: rotate(-2deg);
+}
+
+#log-out:hover {
+    transform: rotate(-2deg) scale(1.03);
+}
+
+#log-out:active {
+    transform: rotate(-2deg) scale(0.97);
+}
+
+#home{
+    position:absolute;
+    left: 65%;
+    top: 77%;
+    /* border: 1px solid blue; */
+    transform: rotate(-1deg);
+}
+
+#home:hover {
+    transform: rotate(-1deg) scale(1.03);
+}
+
+#home:active {
+    transform: rotate(-1deg) scale(0.97);
 }

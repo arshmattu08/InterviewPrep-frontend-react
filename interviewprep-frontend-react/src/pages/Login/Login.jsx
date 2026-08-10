@@ -31,7 +31,7 @@ const Login = () => {
         setMessage('')
         setError('')
 
-        const res = await fetch(`${import.meta.env.VITE_BE_URL}/login/`, {
+        const res = await fetch(`${import.meta.env.VITE_BE_URL}/login`, {
             method:"POST",
             headers: {"Content-Type":"application/json"},
             credentials:"include",
