@@ -10,10 +10,20 @@ import headset from "../../assets/headset.svg";
 import desktop from "../../assets/desktop.svg";
 import IndianaMap from "../../assets/IndianaMap.svg";
 import Footer from "../../components/Footer/Footer";
+import { useContext } from "react";
+import { AppContext } from "../../components/App";
+import TypeWriter from "../../components/TypeWriter/TypeWriter";
 
 
 
 const LandingPage = () => {
+
+    const {isLoggedIn} = useContext(AppContext)
+    const landingQ = ["Nervous about your interview?", 
+                      "Got an interview coming up?", 
+                      "Need to put your interview reps in?",
+                      "We have something to show you."]
+
 
     const steps = [
         {number:1, title: "Form", text: "Fill out a form with appropriate job description and any extra context about you or the role/company you preparing for.", icon: formicon},
@@ -26,10 +36,11 @@ const LandingPage = () => {
         <HemiSphere/>
 
         <div id="hero-text">
-            <p id="questions">Nervous about your next interview? </p>
+            {/* <p id="questions">Nervous about your next interview? </p> */}
+            <TypeWriter statementArray={landingQ} id="questions"/>
             <p id="try-line"> Try <i>fyi</i> to simulate real world interviews.</p>
 
-            <Link to={"/account"}> <Button label={<b>Get Started!</b>}/> </Link>
+            <Link to={!isLoggedIn ? "/account": "/form"}> <Button label={<b>Get Started!</b>}/> </Link>
         </div>
 
         <p className="titles">How It Works</p>
