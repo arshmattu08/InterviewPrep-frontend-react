@@ -21,3 +21,18 @@
 .faq-answer.open {
     max-height: 40px;
 }
+
+@media (max-width:768px) {
+    #faq-item{
+    width: 70%;
+    text-align: left;
+    padding: 5px 10px 5px 10px;
+    cursor: pointer;
+    }
+
+
+    #faq-question {
+    font-size: 22px;
+     background-color: #f2f0f0;
+}
+}

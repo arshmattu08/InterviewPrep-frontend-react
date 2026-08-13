@@ -12,7 +12,7 @@ const Pricing = () =>{
 
         <div id="pricing-heading">
             <h1>Pricing</h1>
-            <p style={{marginTop:'20px'}}>Note: Single 20 min interview = 10 credits.</p>
+            <p style={{marginTop:'20px', fontWeight:'bold'}}>Single 20 min interview = 10 credits.</p>
         </div>
 
 
