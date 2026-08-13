@@ -156,7 +156,7 @@ let nextStartTime = useRef(0);
   activeSources.current.push(source);
   source.onended = () => {
     activeSources.current = activeSources.current.filter(s => s !== source)
-    if (activeSources.length === 0) setWhoTalking("")
+    if (activeSources.length == 0) setWhoTalking("")
   }
 
   const startAt = Math.max(audioCtx.current.currentTime, nextStartTime.current);
@@ -184,14 +184,24 @@ function stopAIPlayback() {
 
         if (typeof event.data === "string") {
         let msg;
-        try { msg = JSON.parse(event.data) } catch {
-            feedbackReport.current = event.data
-            return}
+        msg = JSON.parse(event.data) 
+
         if (msg.msg === "tts_start") {
             setWhoTalking("ai")
             nextStartTime.current = audioCtx.current.currentTime //on tts start, we match nextTime to audioCtx time
             ignoreIncomingBytes.current = false;
+            return;
         }
+
+        if (msg.feedback) {
+        feedbackReport.current = msg.feedback
+        console.log("Feedback filled in!")
+        return}
+
+        else {
+            feedbackReport.current = "No Feedback";
+        }
+
                 return
     }
 
@@ -235,8 +245,10 @@ function stopAIPlayback() {
         //wait for greeting
         while (!feedbackReport.current) {
             await new Promise(r => setTimeout(r,100))
+            console.log("currently waiting for feedback.....")
         }
         ws.current.close()
+        console.log("going to done page!")
         navigate("/interviewdonepage")
 
         }
