@@ -82,7 +82,7 @@ const Profile = () => {
                 <div id="title">Profile Information</div>
 
                 <div className="field">
-                    <h3>First Name</h3>
+                    <p>First Name</p>
                     {isEditingFirstName ? 
                     <input value={firstNameInput} onChange={(e)=> setFirstNameInput(e.target.value)}></input> :
                     <span><h3>{currentUser?.first_name}</h3></span>}
@@ -91,7 +91,7 @@ const Profile = () => {
                 </div>
 
                 <div className="field">
-                     <h3>Last Name</h3>
+                     <p>Last Name</p>
                     {isEditingLastName ? 
                     <input value={lastNameInput} onChange={(e)=> setLastNameInput(e.target.value)}></input> :
                     <span><h3>{currentUser?.last_name}</h3></span>}
@@ -100,7 +100,7 @@ const Profile = () => {
                 </div>
 
                 <div className="field">
-                     <h3>Email</h3>
+                     <p>Email</p>
                      {isEditingEmail ? 
                     <input value={emailInput} onChange={(e)=> setEmailInput(e.target.value)}></input> :
                     <span><h3>{currentUser?.email}</h3></span>}

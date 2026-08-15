@@ -230,4 +230,50 @@
     /* border: 1px solid yellow; */
     transform: rotate(-20deg);
     }
+
+    #credit-score{
+    color: white;
+    width: 30%;
+    height: auto;
+    font-size: 18px;
+    text-align: right;
+    font-weight: lighter; 
+    }
+
+    #add-credits{
+    border: 1px solid white;
+    border-radius: 20px;
+    width:30%;
+    height: auto;
+    color: white;
+    text-align: center;
+    padding-top: 0px;
+    margin-right: 0px;
+    cursor: pointer;
+}
+
+#profile {
+    position:absolute;
+    left: 2%;
+    top: 67%;
+    /* border: 1px solid red; */
+    transform: rotate(20deg);
+}
+
+#home{
+    position:absolute;
+    left: 68%;
+    top: 77%;
+    transform: rotate(-3deg);
+}
+
+#log-out{
+    position:absolute;
+    left: 82%;
+    top: 70%;
+    /* border: 1px solid blue; */
+    transform: rotate(-10deg);
+}
+
+
 }

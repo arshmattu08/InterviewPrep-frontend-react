@@ -2,8 +2,10 @@
     background-color: #6137cc;
     display: flex;
     justify-content: space-between;
-    padding-right: 20px;
+    padding-right: 35px;
     align-items: center;
+    height: 50px;
+    border-radius: 10px;
 }
 
 
@@ -20,13 +22,8 @@
     width:10px;
     height: 10px;
     margin-left: 10%;
-    animation: blink 1.0 s infinite;
+    animation: blink 1.0s infinite;
 }
-
-
-
-
-
 
 .timer {
     margin-left: 20px;
