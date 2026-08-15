@@ -107,7 +107,7 @@ const App = () => {
                     <ProtectedRoute> <FormPage/> </ProtectedRoute> }/>
 
                 <Route path="/waitingpage" element=
-                { <ProtectedRoute><InterviewWaitingPage/> </ProtectedRoute>}/>
+                { <InterviewWaitingPage/> }/>
 
                 <Route path="/interviewpage" element={
                     <ProtectedRoute> <InterviewPage/> </ProtectedRoute>}/>

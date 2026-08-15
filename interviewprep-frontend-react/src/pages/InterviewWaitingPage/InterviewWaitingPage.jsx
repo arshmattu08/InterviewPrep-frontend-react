@@ -100,12 +100,12 @@ const InterviewWaitingPage = () => {
     
 
     return  (
-
+        <div id="waiting-wrapper">
             <WaitingDialogBox 
             joinInterview={joinInterview}
             interviewData={interviewData}
             isUserReady={isUserReady}/>
-
+        </div>
     )       
 
 }

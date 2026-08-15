@@ -8,7 +8,7 @@ const FormCard = ({jobDescription, setJobDescription, additionalContext, setAddi
 
     return <div id = "user_form_wrapper">
             <div>
-                <h2 className={"form-title label"}>Pre-Interview Data Form</h2>
+                <h2 className={"form-title"}>Pre-Interview Data Form</h2>
             </div>
 
             <div>
@@ -19,7 +19,7 @@ const FormCard = ({jobDescription, setJobDescription, additionalContext, setAddi
             <div>
                 <label className={"label"}>Additional Context:</label>
                 <textarea className={"text-area"} value = {additionalContext} onChange={(e) => {setAdditionalContext(e.target.value)}}
-                placeholder="Please provide any additional context regarding the role you're preparing for." cols="100"></textarea>
+                placeholder="Please provide a resume or any additional context regarding the role you're preparing for." cols="100"></textarea>
             </div>
 
 
