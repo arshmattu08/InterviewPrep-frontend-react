@@ -1,7 +1,6 @@
 #change-pass-wrapper{
     position: fixed;
     inset: 0;
-    border: 2px solid red;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,4 +30,32 @@
 
 #save-pass-btn{
     font-weight: bold;
+}
+
+@media (max-width:768px) {
+    #change-pass-dialog{
+    border: 1px solid black;
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    background-color: white;
+    border-radius: 25px;
+    padding: 10px 20px;
+}
+
+
+
+#change-pass-dialog form input {
+    background-color: #ededed;
+    border-radius: 10px;
+    border: none;
+    font-size: 14px;
+    height: 25px;
+}
+
+
 }

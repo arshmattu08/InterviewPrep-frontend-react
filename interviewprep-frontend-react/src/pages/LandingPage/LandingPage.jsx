@@ -40,7 +40,7 @@ const LandingPage = () => {
             <TypeWriter statementArray={landingQ} id="questions"/>
             <p id="try-line"> Try <i>fyi</i> to simulate real world interviews.</p>
 
-            <Link to={!isLoggedIn ? "/account": "/form"}> <Button label={<b>Get Started!</b>}/> </Link>
+            <Link to={!isLoggedIn ? "/account": "/form"}> <Button label={<b>Get Started!</b>} id="get-started-btn"/> </Link>
         </div>
 
         <p className="titles">How It Works</p>
@@ -78,7 +78,7 @@ const LandingPage = () => {
 
             <div id="faq-title">
                 <h1>Frequently Asked Questions (FAQs)</h1>
-                </div>
+            </div>
 
             <FAQItem question={"What is the app really about?"} answer={
                 "It is about interview practice!"

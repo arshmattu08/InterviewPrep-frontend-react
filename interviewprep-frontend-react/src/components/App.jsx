@@ -98,7 +98,8 @@ const App = () => {
                 <Route path="/pricing" element={<Pricing/>}/>
                 <Route path="/account" element={<SignUp/>}/>
                 <Route path="/login" element={<Login/>}/>
-                 <Route path="/profile" element={<Profile/>}/>
+                 <Route path="/profile" element={
+                    <ProtectedRoute> <Profile/> </ProtectedRoute>}/>
                 <Route path="/UserLandingPage" element = {
                     <ProtectedRoute> <UserLandingPage/>  </ProtectedRoute> } />
 
@@ -106,10 +107,10 @@ const App = () => {
                     <ProtectedRoute> <FormPage/> </ProtectedRoute> }/>
 
                 <Route path="/waitingpage" element=
-                { <ProtectedRoute><InterviewWaitingPage/> </ProtectedRoute>}/>
+                { <InterviewWaitingPage/> }/>
 
                 <Route path="/interviewpage" element={
-                   <ProtectedRoute>  <InterviewPage/> </ProtectedRoute>}/>
+                    <ProtectedRoute> <InterviewPage/> </ProtectedRoute>}/>
 
                 <Route path="/interviewdonepage" element={
                      <ProtectedRoute>  <InterviewDonePage/> </ProtectedRoute>}/>

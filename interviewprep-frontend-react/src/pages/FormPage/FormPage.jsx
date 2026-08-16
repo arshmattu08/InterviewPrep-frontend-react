@@ -20,16 +20,17 @@ const FormPage = () => {
 
     return (
         // On this formPage we can return the Card plus navbar and stuff in the future.
-
-        <FormCard
-        jobDescription={jobDescription}
-        setJobDescription={setJobDescription}
-        additionalContext={additionalContext}
-        setAdditionalContext={setAdditionalContext}
-        recordingOption={recordingOption}
-        setRecordingOption={setRecordingOption}
-        handleSubmit={handleSubmit}
-        />
+        <div id="form-wrapper">
+            <FormCard
+            jobDescription={jobDescription}
+            setJobDescription={setJobDescription}
+            additionalContext={additionalContext}
+            setAdditionalContext={setAdditionalContext}
+            recordingOption={recordingOption}
+            setRecordingOption={setRecordingOption}
+            handleSubmit={handleSubmit}
+            />
+        </div>
     )
 
 }

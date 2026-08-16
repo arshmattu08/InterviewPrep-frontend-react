@@ -42,7 +42,7 @@ const UserLandingPage = () => {
             <TypeWriter statementArray={funFacts} id="fun-facts"/>
             </div>
 
-            <Button label={"Begin Your Interview"} onClick={handleBeginInterview}/>
+            <Button label={"Begin Your Interview"} onClick={handleBeginInterview} id={"begin-interview-button"}/>
 
         </div>
 

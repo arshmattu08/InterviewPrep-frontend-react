@@ -5,9 +5,6 @@
 
 }
 
-
-
-
 #questions {
     font-size: 38px;
     font-weight: lighter;
@@ -124,4 +121,102 @@ hr{
 }
 .footer-btn:active{
     transform: scale(0.97);
+}
+
+@media (max-width:768px) {
+    #hero-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    } 
+    
+    #questions {
+    font-size: 36px;
+    text-align: center;
+    font-weight: lighter;
+    margin-top: 100px;
+    width: 400px;
+    height: 90px;
+  
+    }
+
+    #try-line{
+        font-size: 40px;
+        font-weight: bold;
+        margin-top: 75px;
+        margin-bottom: 75px;
+        text-align: center;
+    }
+
+    #get-started-btn{
+        color: black;
+    }
+
+    #process-steps-wrapper {
+    width: 100%;
+    height: 100%;
+    font-family: 'Jacques Francois', Helvetica , Times, serif;
+    font-size: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 3px solid red; */
+    gap:10px;
+    margin-top: 15px
+
+    }
+
+    #who-we-are-wrapper {
+    /* border: 3px solid red; */
+    width:100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    }
+
+    #about {
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    background-color: black;
+    width: 75%;
+    height: calc(50% - 6px);
+    color: white;
+    text-align: center;
+    padding: 0px 10px;
+    margin-top: 15px;
+
+}
+
+#indiana-owned {
+    background-color: black;
+    width: 75%;
+    height: calc(50% - 6px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+}
+
+
+#faq-wrapper{
+    display: flex;
+    width: 100%;
+    height: 55%;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+#faq-title {
+    /* margin: 5%; */
+    text-align: center;
+
+}
+
 }
