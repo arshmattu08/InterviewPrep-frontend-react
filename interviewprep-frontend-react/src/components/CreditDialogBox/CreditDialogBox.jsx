@@ -61,13 +61,13 @@ const CreditDialogBox = () => {
                <div className={selectedPlan == "payg" ? "plans selected": "plans"} onClick={() => setSelectedPlan("payg")}>
                     <h4>Pay As You Go</h4>
                     <p>10 Credits</p>
-                     <h4>$2.99</h4>
+                     <h4>$2.49</h4>
                </div>
 
                 <div className={selectedPlan == "bundle" ? "plans selected": "plans"}onClick={() => setSelectedPlan("bundle")}>
                     <h4>Bundle</h4>
                      <p>50 Credits</p>
-                    <h4>$11.99</h4>
+                    <h4>$9.99</h4>
                </div>
 
                <div id="quantity">

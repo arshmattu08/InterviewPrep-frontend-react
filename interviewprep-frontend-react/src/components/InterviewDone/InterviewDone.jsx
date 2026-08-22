@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import "./InterviewDone.css";
 import { AppContext } from "../App";
 import { useContext } from "react";
+import ReactMarkdown from 'react-markdown';
 
 const InterviewDonePage = () => {
 
@@ -31,10 +32,10 @@ const InterviewDonePage = () => {
 
 
 
-    return <div>
+    return <div id="done-page-wrapper">
         
         <label> <h5>Feedback Report:</h5> </label>
-        <p>{feedbackReport.current}</p>
+        <ReactMarkdown>{feedbackReport.current}</ReactMarkdown>
 
        
         <label> <h5>Recording:</h5> </label>
