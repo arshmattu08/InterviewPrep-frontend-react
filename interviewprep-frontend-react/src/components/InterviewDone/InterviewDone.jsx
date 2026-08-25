@@ -1,14 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import "./InterviewDone.css";
 import { AppContext } from "../App";
 import { useContext } from "react";
+import HemiSphere from "../HemiSphere/HemiSphere";
+import Button from "../Button/Button";
+import html2pdf from 'html2pdf.js';
 import ReactMarkdown from 'react-markdown';
+import Footer from "../Footer/Footer";
 
 const InterviewDonePage = () => {
 
 
     const {ws, recordedChunks, feedbackReport} = useContext(AppContext)
-
+    const reportRef = useRef(null)
+    const [capturing, setCapturing] = useState(false);
 
 
     // useEffect(() => {
@@ -18,7 +23,7 @@ const InterviewDonePage = () => {
     // },[])
 
 
-    const handleDownload = () => {
+    const downloadRecording = () => {
         const blob = new Blob(recordedChunks.current)
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -29,23 +34,42 @@ const InterviewDonePage = () => {
 
     }
 
+   const downloadReport = () => {
+    setCapturing(true)
+    html2pdf().from(reportRef.current).save('interview_report.pdf').then(() => {
+    setCapturing(false)});
+
+  }
 
 
+    return (
+    <>
 
-    return <div id="done-page-wrapper">
+    <HemiSphere/>
+    
+    <div id="done-page-wrapper">
+
+        <h2>Thank you for interviewing with us. Your session artifacts are below.</h2>
         
-        <label> <h5>Feedback Report:</h5> </label>
-        <ReactMarkdown>{feedbackReport.current}</ReactMarkdown>
+        <div ref={reportRef} id={capturing ? "capture-mode": "feedback-wrapper"}>
+            <label> <h3>Feedback Report:</h3> </label>
+            <ReactMarkdown>{feedbackReport.current}</ReactMarkdown>
+        </div>
 
+        <Button label={"Download Report"} onClick={downloadReport}/>
        
-        <label> <h5>Recording:</h5> </label>
-        {recordedChunks.current.length > 0 ? <button onClick={handleDownload}>Download Recording</button> 
-        : "Your recording should be saved to your device if you chose to record."}
-
+       <div id="recording-wrapper">
+            <label> <h2>Recording:</h2> </label>
+            {console.log(recordedChunks.current.length)}
+            {recordedChunks.current.length > 0 ? <Button label={"Download Recording"} onClick={downloadRecording}/>
+            : "Your recording should be saved to your device if you chose to record."}
+        </div>
 
     </div>
 
-
+        <Footer/>
+    </>
+    )
 }
 
 

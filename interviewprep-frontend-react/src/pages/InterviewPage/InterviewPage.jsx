@@ -13,7 +13,7 @@ import PopUp from "../../components/PopUp/PopUp";
 const InterviewPage = () => {
 
 
-    const {greetingBuffer,stream, ws, sessionRecorder, fileWriter, feedbackReport} = useContext(AppContext)
+    const {greetingBuffer,stream, ws, sessionRecorder, fileWriter, feedbackReport, recordingData, videoTrack, recordedChunks} = useContext(AppContext)
     const navigate = useNavigate()
 
     const [time, setTime] = useState(0);
@@ -21,23 +21,17 @@ const InterviewPage = () => {
     const [whoTalking, setWhoTalking] = useState("")
 
 
-    const audioContext = useRef(new AudioContext());
+
     const audioCtx = useRef(new AudioContext({ sampleRate: 24000 })); // for TTS playback
-    const analyser = useRef(audioContext.current.createAnalyser());
-    const dataArray = useRef(new Uint8Array(analyser.current.frequencyBinCount));
+    const dest = useRef(null);
     const isRecording = useRef(false)
     const bufferSource = useRef(null);
-    const silenceStart = useRef(null)
-    const SILENCE_LIMIT = 3500; //millisec
-    const silenceFrames = useRef(null);
-    const threshold = 20;
     const isWaitingResponse = useRef(false)
     const isGreetingPlaying = useRef(false)
     const graceTimer = useRef(null);
     let activeSources = useRef([]);
     let leftoverByte = useRef(null);
     let recorder = useRef(null);
-    let audio_chunks = useRef([]);
     const ignoreIncomingBytes = useRef(false)
     const hasWarned = useRef(false)
 
@@ -76,10 +70,26 @@ const InterviewPage = () => {
             ws.current.send(JSON.stringify({"msg":"user_done"})); 
             console.log("User response is done")
         }
-        const mic_source = audioContext.current.createMediaStreamSource(stream.current); 
-        mic_source.connect(analyser.current);
-        // detectSpeech();
-    }
+
+        dest.current = audioCtx.current.createMediaStreamDestination();
+        const mic_source = audioCtx.current.createMediaStreamSource(stream.current)
+        mic_source.connect(dest.current)
+
+         // creating our solid session recorder for both audio and video
+        if (recordingData.current !== "No Recording"){
+            const tracks = [...dest.current.stream.getAudioTracks()]
+            if (videoTrack.current) tracks.push(videoTrack.current)
+            sessionRecorder.current = new MediaRecorder(new MediaStream(tracks))
+
+            if (fileWriter.current) {
+                sessionRecorder.current.ondataavailable = async (event) => {fileWriter.current.write(event.data);}
+            }
+            else {
+                sessionRecorder.current.ondataavailable = async (event) => { recordedChunks.current.push(event.data); }
+        }
+        sessionRecorder.current.start(250)
+       
+    }}
 
 
 
@@ -87,9 +97,9 @@ const InterviewPage = () => {
         baseAssetPath: "https://cdn.jsdelivr.net/npm/@ricky0123/vad-web@0.0.30/dist/",
         onnxWASMBasePath: "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/",
         getStream: () => Promise.resolve(stream.current), 
-        positiveSpeechThreshold: 0.9,
+        positiveSpeechThreshold: 0.96,
         onSpeechStart: () => {
-                console.log("speech started")
+                console.log("noticed speech")
                 setWhoTalking("user")
                 if (isWaitingResponse.current) {return}
                 if (graceTimer.current) clearTimeout(graceTimer.current);
@@ -109,6 +119,7 @@ const InterviewPage = () => {
 
             },
         onVADMisfire: () => {
+        console.log("misfire happened")
         if (graceTimer.current) {
         clearTimeout(graceTimer.current)
         graceTimer.current = null
@@ -152,6 +163,7 @@ let nextStartTime = useRef(0);
   const source = audioCtx.current.createBufferSource();
   source.buffer = audioBuffer;
   source.connect(audioCtx.current.destination);
+  source.connect(dest.current)
 
   activeSources.current.push(source);
   source.onended = () => {
@@ -217,7 +229,7 @@ function stopAIPlayback() {
 
     useEffect(() => {
         initInterview()
-        playGreeting()
+        playPCMChunk(greetingBuffer.current)
     },[])
 
     useEffect(() => {
@@ -235,8 +247,8 @@ function stopAIPlayback() {
 
     const handleEnd = async () => {
         if (sessionRecorder.current) {
-            sessionRecorder.current.onstop = () => fileWriter.current.close()
-            sessionRecorder.current.stop()
+            sessionRecorder.current.onstop = () => {if (fileWriter.current) fileWriter.current.close()}
+            sessionRecorder.current.stop() 
         }
          ws.current.send(JSON.stringify({"msg":"end"}))
 
