@@ -1,12 +1,22 @@
-import React from "react";
+import React, {useState, useRef, useEffect} from "react";
 import "./InterviewGrid.css";
-import avatar from "../../assets/avatar2.jpeg";
+import avatar from "../../assets/newavatar.jpeg";
 import { AppContext } from "../App";
 import { useContext } from "react";
 
 const Grid = ({whoTalking}) => {
 
-    const {currentUser} = useContext(AppContext)
+    const {currentUser, videoTrack} = useContext(AppContext)
+    const userVideoRef = useRef(null);
+
+
+    useEffect(() => {
+        if (videoTrack.current) {
+            userVideoRef.current.srcObject = new MediaStream([videoTrack.current])
+        }
+    }, [])
+
+
 
     return (
                 <div id = {"grid-wrapper"}>
@@ -16,7 +26,7 @@ const Grid = ({whoTalking}) => {
                     </div>
 
                     <div className={whoTalking == "user" ? "interviewee speaking" : "interviewee"}>
-                        {currentUser.first_name}
+                        {videoTrack.current ? <video ref={userVideoRef} autoPlay muted playsInline style={{width:'100%', height:'100%', objectFit:'cover'}}/> : currentUser.first_name}
                     </div>
 
 

@@ -23,6 +23,8 @@ const AppProvider = ({children}) => {
         const stream = useRef(null);
         const recordedChunks = useRef([])
          const feedbackReport = useRef(null)
+        const recordingData = useRef(null)
+        const videoTrack = useRef(null);
 
         const [accessToken, setAccessToken] = useState(null)
         const [isCheckingAuth, setCheckingAuth] = useState(true)
@@ -79,7 +81,7 @@ const AppProvider = ({children}) => {
         return (
             <AppContext.Provider value={{ws,fileWriter,sessionStream,sessionRecorder,greetingBuffer, isLoggedIn, setLoggedIn,
                                         stream,recordedChunks, accessToken, setAccessToken, isCheckingAuth,
-                                        currentUser, setCurrentUser, isCreditBoxOpen, setCreditBoxOpen, getUser, feedbackReport}}>
+                                        currentUser, setCurrentUser, isCreditBoxOpen, setCreditBoxOpen, getUser, feedbackReport, recordingData, videoTrack}}>
                 {children}
             </AppContext.Provider>
         )
@@ -113,7 +115,7 @@ const App = () => {
                     <ProtectedRoute> <InterviewPage/> </ProtectedRoute>}/>
 
                 <Route path="/interviewdonepage" element={
-                     <ProtectedRoute>  <InterviewDonePage/> </ProtectedRoute>}/>
+                    <ProtectedRoute><InterviewDonePage/> </ProtectedRoute> } />
 
 
              </Routes>

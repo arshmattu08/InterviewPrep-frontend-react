@@ -2,4 +2,24 @@
     /* border: 2px solid red; */
     max-width: 100%;
     overflow-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    padding-top: 50px;
+    height: 75%;
 }
+
+#feedback-wrapper {
+  width: 90px;
+  height: 3px;
+  overflow-y: scroll;
+}
+
+#capture-mode {
+  width: 90%;
+  height: auto;
+  padding: 5px 12px 5px 12px;
+}
+
+
