@@ -12,14 +12,14 @@ const Pricing = () =>{
 
         <div id="pricing-heading">
             <h1>Pricing</h1>
-            <p style={{marginTop:'20px', fontWeight:'bold'}}>Single 20 min interview = 10 credits.</p>
+            <p style={{marginTop:'20px', fontWeight:'bold'}}>10 credits offer up to 20 min interview session.</p>
         </div>
 
 
         <div id="pricing-tile-wrapper">
 
             <PricingTile title={"PAY AS YOU GO"} dollars={"$2.99"} num_credits={"10 Credits"}/>
-            <PricingTile title={"BUNDLE"} dollars={"$11.99"} num_credits={"50 Credits"}/>
+            <PricingTile title={"BUNDLE"} dollars={"$9.99"} num_credits={"50 Credits"}/>
 
         </div>
 

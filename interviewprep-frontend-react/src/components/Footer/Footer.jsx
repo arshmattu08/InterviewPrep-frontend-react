@@ -14,7 +14,7 @@ const Footer = () => {
         <div id="footer">
             <button className="footer-btn" onClick={() => setIsPolicyOpen(true)}>Privacy Policy</button>
             <button className="footer-btn" onClick={()=> setIsTermsOpen(true)}>Terms and Conditions</button>
-            <button className="footer-btn">Contact Us</button>
+            <a href="mailto: singharshpreet6060@gmail.com" className="footer-btn" style={{textDecoration:"none"}}>Contact Us</a>
 
             {isTermsOpen && <TermsConditions setIsTermsOpen={setIsTermsOpen}/>}
             {isPolicyOpen && <PrivacyPolicy setIsPolicyOpen={setIsPolicyOpen}/>}
