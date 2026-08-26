@@ -108,11 +108,11 @@ const App = () => {
                 <Route path="/form" element={
                     <ProtectedRoute> <FormPage/> </ProtectedRoute> }/>
 
-                <Route path="/waitingpage" element=
-                { <InterviewWaitingPage/> }/>
+                <Route path="/waitingpage" element={
+                <ProtectedRoute> <InterviewWaitingPage/> </ProtectedRoute> }/>
 
                 <Route path="/interviewpage" element={
-                    <ProtectedRoute> <InterviewPage/> </ProtectedRoute>}/>
+                    <ProtectedRoute> <InterviewPage/></ProtectedRoute>}/>
 
                 <Route path="/interviewdonepage" element={
                     <ProtectedRoute><InterviewDonePage/> </ProtectedRoute> } />

@@ -76,7 +76,7 @@ const InterviewPage = () => {
         mic_source.connect(dest.current)
 
          // creating our solid session recorder for both audio and video
-        if (recordingData.current !== "No Recording"){
+        if (recordingData.current.recordingOption !== "No Recording"){
             const tracks = [...dest.current.stream.getAudioTracks()]
             if (videoTrack.current) tracks.push(videoTrack.current)
             sessionRecorder.current = new MediaRecorder(new MediaStream(tracks))
