@@ -1,0 +1,77 @@
+#forgot-wrapper{
+    border: 2px solid red;
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(7px);
+}
+
+#inner-dialog-box{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid black;
+    width: 45%;
+    height: auto;
+    background-color: white;
+    padding: 10px 0px 10px 0px;
+}
+
+#inner-dialog-box h2{
+    margin-bottom: 30px;
+}
+
+#change-forgotPass-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#inner-dialog-box form input {
+    background-color: #ededed;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    height: 25px;
+}
+
+
+
+#save-pass-btn{
+    font-weight: bold;
+    font-size: 13px;
+}
+
+
+
+
+@media (max-width:768px) {
+    #change-pass-dialog{
+    border: 1px solid black;
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    background-color: white;
+    border-radius: 25px;
+    padding: 10px 20px;
+}
+
+
+
+#change-pass-dialog form input {
+    background-color: #ededed;
+    border-radius: 10px;
+    border: none;
+    font-size: 14px;
+    height: 25px;
+}
+
+
+}
