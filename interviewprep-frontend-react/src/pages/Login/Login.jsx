@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../components/App";
 import { useContext } from "react";
 import { useSearchParams } from 'react-router-dom';
+import ForgotDialogBox from "../../components/ForgotDialogBox/ForgotDialogBox";
 
 const Login = () => {
 
@@ -16,6 +17,8 @@ const Login = () => {
     const [message, setMessage] = useState('')
     const [error, setError] = useState('')
     const [needsVerification, setNeedsVerification] = useState(false)
+    const [isForgotDialogOpen, setForgotDialogOpen] = useState(false)
+    const [forgotPassToken, setForgotPassToken] = useState("")
     const navigate = useNavigate()
     const {access_token ,setAccessToken, setLoggedIn, setCurrentUser, getUser} = useContext(AppContext)
 
@@ -44,7 +47,21 @@ const Login = () => {
                 }
 
         }
+
+
+    const forgot_pass = () => {
+        const forgotPasswordToken = searchParams.get("forgotPassToken")
+        if (!forgotPasswordToken) return;
+
+        console.log("got the token, should see the dialog box!")
+        setForgotDialogOpen(true)
+        setForgotPassToken(forgotPasswordToken)
+
+    }
+
+
     verify();
+    forgot_pass();
     },[])
 
 
@@ -67,7 +84,28 @@ const Login = () => {
 
     }
 
+    const handleForgot = async () =>{
 
+        if (!loginForm.email){
+            setError("No Email Provided.")
+            return;
+        }
+        const forgotRes = await fetch(`${import.meta.env.VITE_BE_URL}/forgot_pass`, {
+            method:'POST',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({email: loginForm.email})
+        })
+
+        const forgotResData = await forgotRes.json()
+
+        if (forgotRes.ok) {
+            setMessage(forgotResData.message)
+        }
+
+        else if (!forgotRes.ok) {
+            setError(forgotResData.detail)
+        }
+    }   
 
 
 
@@ -136,7 +174,7 @@ const Login = () => {
                         <input name="password" type="password" value={loginForm.password} onChange={handleChange} required/>
                     </div>
                 
-                <p style={{color:'#0687FF',marginTop:'-12px', marginBottom:'-20px', cursor:'pointer'}}>Forgot Password?</p>
+                <p style={{color:'#0687FF',marginTop:'-12px', marginBottom:'-20px', cursor:'pointer'}} onClick={handleForgot}>Forgot Password?</p>
 
                 <Button type="submit" label={<b>Login</b>}/>
 
@@ -152,6 +190,8 @@ const Login = () => {
             </div>
 
         </div>
+
+        {isForgotDialogOpen && <ForgotDialogBox toggle={setForgotDialogOpen} forgotPassToken = {forgotPassToken}/>      }
 
         <Footer/>
 
