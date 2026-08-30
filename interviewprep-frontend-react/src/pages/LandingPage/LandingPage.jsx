@@ -13,6 +13,8 @@ import Footer from "../../components/Footer/Footer";
 import { useContext } from "react";
 import { AppContext } from "../../components/App";
 import TypeWriter from "../../components/TypeWriter/TypeWriter";
+import openai from "../../assets/OpenAI.svg";
+import anthropic from "../../assets/anthropic.svg"
 
 
 
@@ -69,6 +71,16 @@ const LandingPage = () => {
                     <h2>INDIANA OWNED</h2>
                 </div>
 
+
+        </div>
+
+        <div id="integrations">
+            <p>Powered By</p>
+            
+            <div id="logos">
+                <img src={openai} id="openai-img"></img>
+                <img src={anthropic} id="anthropic-img"></img>
+            </div>
 
         </div>
 

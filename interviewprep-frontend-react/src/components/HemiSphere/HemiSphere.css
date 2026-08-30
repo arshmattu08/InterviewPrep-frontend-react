@@ -15,6 +15,15 @@
 
 }
 
+#early-access{
+    color: #ffc88c;
+    position: absolute;
+    font-size: 16px;
+    top: 10px;
+    left: 10px;
+    font-family: 'Roboto', 'Arial','Times New Roman';
+}
+
 #logo {
     width: 15%;
     height: 50%;
@@ -89,6 +98,7 @@
 }
 
 #resources {
+    display: none;
     position:absolute;
     left: 90%;
     top: 55%;
@@ -184,6 +194,15 @@
 
     }
 
+    #early-access{
+    color: #ffc88c;
+    position: absolute;
+    font-size: 13px;
+    top: 10px;
+    left: 10px;
+    font-family: 'Roboto', 'Arial','Times New Roman';
+}
+
     #logo {
     width: 30%;
     height: 60%;
@@ -213,6 +232,9 @@
         transform: rotate(8deg);
     }
 
+    #pricing:active {
+    transform: rotate(8deg) scale(0.97);
+    }
 
     #account {
         position:absolute;
@@ -222,7 +244,12 @@
         transform: rotate(-10deg);
     }
 
+    #account:active {
+    transform: rotate(-10deg) scale(0.97);
+    }
+
     #resources {
+    display: none;
     position:absolute;
     font-size: 12px;
     left: 82%;
