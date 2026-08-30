@@ -44,6 +44,7 @@ const HemiSphere = () => {
         
           {!isLoggedIn && 
           <div id="hemisphere">
+            <p id="early-access">Early Access - Indiana</p>
 
             <Link to={"/pricing"}> <button id= "pricing" className="nav-btn">Pricing</button> </Link>
             <Link to={"/"}> <img id = "logo" src={Logo}></img> </Link>
@@ -53,7 +54,7 @@ const HemiSphere = () => {
 
           {isLoggedIn && 
           <div id="hemisphere">
-
+            <p id="early-access">Early Access - Indiana</p>
 
             <Link to={"/pricing"}> <button id= "pricing" className="nav-btn">Pricing</button> </Link>
             <Link to={"/profile"}> <button id= "profile" className="nav-btn">Profile</button> </Link>
