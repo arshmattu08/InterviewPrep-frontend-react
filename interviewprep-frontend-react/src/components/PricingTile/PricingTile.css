@@ -12,6 +12,10 @@
     padding: 10px 0px 10px 0px;
 }
 
+#pricing-tile h6{
+    color: #ffc88c;
+}
+
 @media (max-width:768px) {
     #pricing-tile {
     width: 60%;
