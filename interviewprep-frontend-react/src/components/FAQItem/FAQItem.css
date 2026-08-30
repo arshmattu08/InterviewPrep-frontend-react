@@ -15,16 +15,17 @@
 .faq-answer {
     overflow: hidden;
     max-height: 0;
-    transition: max-height 0.5s ease;
+    transition: max-height 0.8s ease;
 }
 
 .faq-answer.open {
-    max-height: 40px;
+    max-height: 200px;
 }
 
 @media (max-width:768px) {
     #faq-item{
     width: 70%;
+    height: auto;
     text-align: left;
     padding: 5px 10px 5px 10px;
     cursor: pointer;
@@ -33,6 +34,16 @@
 
     #faq-question {
     font-size: 22px;
-     background-color: #f2f0f0;
+    background-color: #f2f0f0;
+}
+
+.faq-answer {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.8s ease;
+}
+
+.faq-answer.open {
+    height: auto;
 }
 }

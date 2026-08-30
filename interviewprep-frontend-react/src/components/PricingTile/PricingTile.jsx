@@ -1,7 +1,7 @@
 import React from "react";
 import "./PricingTile.css"
 
-const PricingTile = ({title, dollars, num_credits}) => {
+const PricingTile = ({title,temp_msg= "",dollars, num_credits}) => {
 
 
     return (
@@ -9,6 +9,7 @@ const PricingTile = ({title, dollars, num_credits}) => {
         <div id="pricing-tile">
 
             <h4 style={ {color:'cyan'} }>{title}</h4>
+            {temp_msg && <h6>{temp_msg}</h6>}
              <h4 style={ {fontSize:'22px'} }>{dollars}</h4>
               <h4 style={ {fontSize:'22px'} }>{num_credits}</h4>
 

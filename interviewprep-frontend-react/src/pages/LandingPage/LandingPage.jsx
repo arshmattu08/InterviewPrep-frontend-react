@@ -92,11 +92,17 @@ const LandingPage = () => {
                 <h1>Frequently Asked Questions (FAQs)</h1>
             </div>
 
-            <FAQItem question={"What is the app really about?"} answer={
-                "It is about interview practice!"
+            <FAQItem question={"How is this application different from alternatives like ChatGPT?"} answer={
+                `We admit that services like voice modes on typical LLMs offer low friction and quick interview practice.
+                However, we offer purpose built app with UI that makes it feel like an interview, a structured and consistent report with handcrafted prompt engineering,
+                and easy session recording to judge your confidence and answers.`
             }/>
-            <FAQItem question={"How much do I need to pay?"} answer={
-                "Just $2.99 per 20 min session. It is pay as you go."
+            <FAQItem question={"Do you have a refund policy?"} answer={
+                "Yes. If you feel dissatisfied with a session or something breaks, feel free to contact us and we'll issue you a refund."
+            }/>
+
+             <FAQItem question={"Do the credits expire?"} answer={
+                "Credits won't ever expire if you get them in app's early launch phase."
             }/>
 
         </div>

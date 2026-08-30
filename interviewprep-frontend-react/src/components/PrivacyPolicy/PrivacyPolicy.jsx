@@ -9,11 +9,11 @@ const PrivacyPolicy = ({setIsPolicyOpen}) => {
 
         <div id="policy-wrapper" onClick={() => setIsPolicyOpen(false)}>
 
-            <div id="inner-info" onClick={(e) => e.stopPropagation()}>
+            <div id="inner-info-privacy" onClick={(e) => e.stopPropagation()}>
 
                 <h2>Privacy Policy</h2>
 
-                <div id="scroll-content">
+                <div id="scroll-content-privacy">
 
                     <h3>Effective Date: August 6, 2026</h3>
 

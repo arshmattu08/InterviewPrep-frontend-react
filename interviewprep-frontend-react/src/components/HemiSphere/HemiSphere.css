@@ -232,20 +232,28 @@
         transform: rotate(8deg);
     }
 
+    #pricing:hover {
+    transform: rotate(8deg);
+}
+
     #pricing:active {
-    transform: rotate(8deg) scale(0.97);
+    transform: rotate(8deg) scale(0.80);
     }
 
     #account {
         position:absolute;
-        left: 67%;
+        left: 69%;
         top: 75%;
         /* border: 1px solid blue; */
-        transform: rotate(-10deg);
+        transform: rotate(-6deg);
+    }
+
+     #account:hover {
+    transform: rotate(-6deg);
     }
 
     #account:active {
-    transform: rotate(-10deg) scale(0.97);
+    transform: rotate(-6deg) scale(0.80);
     }
 
     #resources {
