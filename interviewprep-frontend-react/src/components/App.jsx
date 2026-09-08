@@ -9,10 +9,22 @@ import Pricing from "../pages/Pricing/Pricing";
 import SignUp from "../pages/SignUp/SignUp";
 import Login from "../pages/Login/Login";
 import Profile from "../pages/Profile/Profile";
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 
 const AppContext = createContext();
+const PageTracker = () => {
+        const location = useLocation()
+        useEffect(() => {
+            window.gtag('event', 'page_view',{
+                page_path: location.pathname + location.search
+            });
+
+        }, [location]);
+
+        return null;
+    }
+
 
 const AppProvider = ({children}) => {
         const ws = useRef(null)
@@ -94,6 +106,7 @@ const App = () => {
 
         <AppProvider>
             <Router>
+                <PageTracker/>
              <Routes>
 
                 <Route path="/" element={<LandingPage/>}/>
