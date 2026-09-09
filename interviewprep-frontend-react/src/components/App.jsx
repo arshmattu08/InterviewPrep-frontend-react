@@ -18,7 +18,6 @@ const PageTracker = () => {
         useEffect(() => {
             window.gtag('event', 'page_view',{
                 page_path: location.pathname + location.search,
-                debug_mode: true
             });
 
         }, [location]);
